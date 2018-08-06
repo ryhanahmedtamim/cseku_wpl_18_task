@@ -9,7 +9,7 @@ class Task{
     private $_AssignDate;
     private $_AssignTo;
     private $_AssignBy;
-	private $_Categorys;    
+	private $_Category;    
 
 
     public function setID ( $ID ) {
@@ -70,11 +70,11 @@ class Task{
     }
 
     public function setCategory ( $Category ) {
-        $this->_AssignTo = $AssignTo;
+        $this->_Category = $Category;
     }
 
     public function getCategory () {
-        return $this->_Categoryss;
+        return $this->_Category;
     }
 
 }
@@ -84,7 +84,7 @@ class Task_Category{
 
 
 	private $_ID;
-	private $_Categorys;
+	private $_Category;
  	public function setID ( $ID ) {
         $this->_ID = $ID;
     }
@@ -93,11 +93,11 @@ class Task_Category{
         return $this->_ID;
     }
 	public function setCategory ( $Category ) {
-        $this->_AssignTo = $AssignTo;
+        $this->_Category = $Category;
     }
 
     public function getCategory () {
-        return $this->_Categoryss;
+        return $this->_Category;
     }
 
 
