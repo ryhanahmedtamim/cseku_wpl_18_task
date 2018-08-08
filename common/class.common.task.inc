@@ -5,7 +5,7 @@ class Task{
     private $_ID;
     private $_Title;
     private $_Details;
-    private $_LastDateOfSubmit;
+    private $_LastDateOfFinish;
     private $_AssignDate;
     private $_AssignTo;
     private $_AssignBy;
@@ -37,12 +37,12 @@ class Task{
         return $this->_Details;
     }
 
-    public function setLastDateOfApplication ( $LastDateOfSubmit ) {
-        $this->_LastDateOfSubmit = $LastDateOfSubmit;
+    public function setLastDateOfFinish ( $LastDateOfFinish ) {
+        $this->_LastDateOfFinish = $LastDateOfFinish;
     }
 
-    public function getLastDateOfSubmit () {
-        return $this->_LastDateOfSubmit;
+    public function getLastDateOfFinish () {
+        return $this->_LastDateOfFinish;
     }
 
     public function setAssignDate ( $AssignDate ) {
@@ -62,7 +62,7 @@ class Task{
     }
 
     public function setAssignBy ( $AssignBy ) {
-        $this->_AssignTo = $AssignTo;
+        $this->_AssignBy = $AssignBy;
     }
 
     public function getAssignBy () {

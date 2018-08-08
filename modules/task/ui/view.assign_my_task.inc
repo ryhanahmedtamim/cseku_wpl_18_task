@@ -33,7 +33,7 @@ include_once COMMON.'class.common.inc';
 
 			
 			<div class="form-group">
-              	<label class="control-label col-sm-4" for="selectDiscipline">Category:</label>
+              	<label class="control-label col-sm-4" for="Category">Category:</label>
               	<div class="col-sm-6">	
 
 							
@@ -42,7 +42,7 @@ include_once COMMON.'class.common.inc';
 							
 								$CategoryList = $Result->getResultObject();					
 							?>
-							<select name="selectDiscipline" class="form-control" required>
+							<select name="Category" class="form-control" required>
 								<option selected disabled>Select Category</option>
 								<?php
 								for ($i = 0; $i<sizeof($CategoryList); $i++){
@@ -72,7 +72,7 @@ include_once COMMON.'class.common.inc';
 			<div class="form-group">        
               <div class="col-sm-offset-2 col-sm-9">
 
-              <button type="submit" value="save" name="save">Add Task</button>
+              <button type="submit" value="addTask" name="addTask">Add Task</button>
     
 						
 			    </div>

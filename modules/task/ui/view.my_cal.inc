@@ -75,10 +75,11 @@
 						 <td width='250px' height='50px'>Wed</td>
 						 <td width='250px' height='50px'>Thu</td>
 						 <td width='250px' height='50px'>Fri</td>
-						 <td width='250px' height='50px'>Sat</td>
+						 <td width='250px' height='50px' >Sat</td>
 				   </tr>
 				   <?php
 				       echo "<tr>";
+				       $day1=date("j");
 					   for($i=1;$i<$numDays+1;$i++,$counter++)
 					   {
 						   $timeStamp=strtotime("$year-$month-$i");
@@ -94,7 +95,17 @@
 						   {
 							   echo "</tr><tr>";
 						   }
-						   echo "<td width='250px' height='50px' align='center'>".$i."</td>";
+
+						   if($i == $day1)
+						   {
+						   	echo "<td width='250px' height='50px' align='center' bgcolor = 'green'>".$i."</td>";
+						   }
+						   else
+						   {
+						   	echo "<td width='250px' height='50px' align='center'>".$i."</td>";
+						   }
+
+						   
 					   }
 					   
 					   echo "</tr>";
