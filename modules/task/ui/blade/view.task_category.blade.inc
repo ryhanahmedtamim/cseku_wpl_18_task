@@ -12,46 +12,56 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 	$_Task = new Task();
 	$_UserBAO = new UserBAO();
 	$_TaskBAO = new TaskBAO();
+	$_Task_Category = new Task_Category();
 
 	$globalUser = $_SESSION["globalUser"];
 
 	
-	if(isset($_POST['addTask'])){
-		$_Task->setId (null);
-		$_Task->setTitle ($_DB->secureInput($_POST['taskName']));
-		$_Task->setCategory ($_DB->secureInput($_POST['Category']));
-		$_Task->setDetails ($_DB->secureInput($_POST['taskDetails']));
-		$_Task->setLastDateOfFinish ($_DB->secureInput($_POST['date']));
-
-
-
-		$_Task->setAssignDate ($_DB->secureInput(date("Y-m-d")));
-
-		//print_r( $globalUser);
-		$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
-		$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
-
-
-		if(isset($_POST['assingTo'])){
-
-		}
-		else{
-			$_Task->setAssignTo($userPositions->getUniversityID());
-		}	
-
-		$_Task->setAssignBy($userPositions->getUniversityID());	
-
-		
-
-		$Result = $_TaskBAO->addNewTask($_Task);		
-
+	if(isset($_POST['save']))
+	{
+		$_Task_Category->setID(null);
+		$_Task_Category->setCategory($_DB->secureInput($_POST['categoryName']));
+		$Result = $_CategoryBAO->addCategory($_Task_Category);
 		if($Result->getIsSuccess()){
-	  		 Util::printToast($Result->getResultObject());	
+	  		 
+	  		 header("Location:manage_category.php");	
 		}
+	}
 
+	if(isset($_GET['del']))
+	{
+		$Task_Category = new Task_Category();	
+		$Task_Category->setID($_GET['del']);
 
-		
+		$Result = $_CategoryBAO->deleteCategory($Task_Category);
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:manage_category.php");	
+		}
 
 	}
+
+	 if(isset($_GET['edit']))
+	{
+		$Task_Category = new Task_Category();
+		$Task_Category->setID($_GET['edit']);
+		$Task_Category->setCategory($_GET['name']);	
+		
+	}
+
+
+	if(isset($_POST['update']))
+	{
+		$Task_Category = new Task_Category();	
+
+    	$Task_Category->setID ($_GET['edit']);
+    	$Task_Category->setCategory( $_POST['categoryName'] );
+	
+		$_CategoryBAO->updateCategory($Task_Category);
+
+		header("Location:manage_category.php");
+	}
+
+
 
 ?>

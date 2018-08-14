@@ -355,6 +355,9 @@ class PageUtil{
     //Task
     public static $Task='my_cal.php';
     public static $Assign_My_Task = 'assign_my_task.php';
+    public static $MANAGE_CATEGORY = 'manage_category.php';
+    public static $MY_TASK = 'my_taks.php';
+    
 }
 
 class RouteUtil{
@@ -497,6 +500,9 @@ class RouteUtil{
          self::$s_Routes[PageUtil::$Task]  =   "modules/task/ui/view.my_cal.inc";
          //view.assign_my_task.inc
          self::$s_Routes[PageUtil::$Assign_My_Task]  =   "modules/task/ui/view.assign_my_task.inc";
+         //MANAGE_CATEGORY
+         self::$s_Routes[PageUtil::$MANAGE_CATEGORY]  =   "modules/task/ui/view.manage_category.inc";
+         self::$s_Routes[PageUtil::$MY_TASK] = "modules/task/ui/view.my_task.inc";
       
     }
 
@@ -621,6 +627,11 @@ class MiddlewareUtil{
          self::$s_Routes[PageUtil::$VIDEO]   =  PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$VIDEO_COMMENT]   =  PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$VIDEO_SEARCH]   =  PageUtil::$LOGIN ;
+
+         self::$s_Routes[PageUtil::$Task]  =   PageUtil::$LOGIN ;
+         self::$s_Routes[PageUtil::$Assign_My_Task]  =   PageUtil::$LOGIN ;
+         self::$s_Routes[PageUtil::$MANAGE_CATEGORY]  =   PageUtil::$LOGIN ;
+         self::$s_Routes[PageUtil::$MY_TASK]  =   PageUtil::$LOGIN ;
          
    
     }

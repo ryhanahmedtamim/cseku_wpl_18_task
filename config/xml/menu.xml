@@ -923,6 +923,8 @@
 				</Permissions>
 			</Menu>
 
+
+
 			<Menu>
 				<ParentMenu>Manage Task</ParentMenu>
 				<Title>Assign Task</Title>
@@ -932,6 +934,18 @@
 					<Permission>TASK_U</Permission>									
 					<Permission>TASK_D</Permission>	
 					<Permission>TASK_R</Permission>
+				</Permissions>
+			</Menu>
+
+			<Menu>
+				<ParentMenu>Manage Task</ParentMenu>
+				<Title>Manage Category</Title>
+				<Link>manage_category.php</Link>
+				<Permissions>
+					<Permission>TASK_CATEGORY_C</Permission>
+					<Permission>TASK_CATEGORY_U</Permission>									
+					<Permission>TASK_CATEGORY_D</Permission>	
+					<Permission>TASK_CATEGORY_R</Permission>
 				</Permissions>
 			</Menu>
 
@@ -946,6 +960,20 @@
 					<Permission>TASK_R</Permission>
 				</Permissions>
 			</Menu>
+
+			<Menu>
+				<ParentMenu>My Task</ParentMenu>
+				<Title>Show My task</Title>
+				<Link>my_taks.php</Link>
+				<Permissions>
+					<Permission>TASK_C</Permission>
+					<Permission>TASK_U</Permission>									
+					<Permission>TASK_D</Permission>	
+					<Permission>TASK_R</Permission>
+				</Permissions>
+			</Menu>
+
+
 
 
 			

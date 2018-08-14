@@ -46,6 +46,52 @@ include_once COMMON.'class.common.task.inc';
 
 	}
 
+	public function addNewCategory($Task_Category)
+	{
+		$CategoryName=$Task_Category->getCategory();
+		$SQL = "INSERT INTO `tms_task_category` (`id`, `task_type`) VALUES (NULL, '$CategoryName')";
+
+		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+		//creating task
+		$SQL = $this->_DB->doQuery($SQL);
+
+		$this->_DB->getConnection()->commit();
+
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		
+
+		return $Result;
+
+	}
+
+	public function deleteCategory($Task_Category)
+	{
+		$Id = $Task_Category->getID();
+
+		$SQL = "DELETE FROM `tms_task_category` WHERE `tms_task_category`.`id` = '$Id'";
+		
+		$SQL = $this->_DB->doQuery($SQL);		
+
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		
+
+		return $Result;
+	}
+
+	public function updateCategory($Task_Category)
+	{
+		$id = $Task_Category->getID();
+		$Category = $Task_Category->getCategory();
+		$SQL = "UPDATE `tms_task_category` SET `task_type` = '$Category' WHERE `tms_task_category`.`id` = '$id';";
+		$SQL = $this->_DB->doQuery($SQL);		
+
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		return $Result;
+	}
+
 	}
 
 ?>

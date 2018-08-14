@@ -787,5 +787,29 @@
 		<category>TASK</category>
 	</permission>
 
+	<permission>
+		<id>TASK_CATEGORY_C</id>
+		<name>TASK_CATEGORY_C</name>
+		<category>TASK_CATEGORY</category>
+	</permission>
+
+	<permission>
+		<id>TASK_CATEGORY_R</id>
+		<name>TASK_CATEGORY_R</name>
+		<category>TASK_CATEGORY</category>
+	</permission>
+
+	<permission>
+		<id>TASK_CATEGORY_U</id>
+		<name>TASK_CATEGORY_U</name>
+		<category>TASK_CATEGORY</category>
+	</permission>
+
+	<permission>
+		<id>TASK_CATEGORY_D</id>
+		<name>TASK_CATEGORY_D</name>
+		<category>TASK_CATEGORY</category>
+	</permission>
+
 
 </permissions>

@@ -52,6 +52,44 @@ include_once COMMON.'class.common.task.inc';
 		return $Result;
 	}
 
+	public function findByUser($user)
+	{
+		$List = array();
+		$Task = new Task();
+		$id = $user->getID();
+
+		$SQL = "SELECT * FROM `tms_task` WHERE `tms_task`.`assign_to` = '$id'";
+
+		$SQL = $this->_DB->doQuery($SQL);
+
+		$rows = $this->_DB->getAllRows();
+
+		for($i = 0; $i < sizeof($rows); $i++) {
+			$row = $rows[$i];
+			$task = new Task_Category();
+
+		    $Task->setID ( $row['id']);
+		    $Task->setTitle($row['task_name']);
+		    $Task->setDetails($row['details']);
+		    $Task->setLastDateOfFinish($row['date_of_submission']);
+		    $Task->setAssignDate($row['date_of_assign']);
+		    $Task->setAssignTo($row['assign_to']);
+		    $Task->setAssignBy($row['assign_by']);	
+		    $Task->setCategory($row['task_category']);	   
+
+		    $List[]=$Task;
+   
+		}
+
+
+		$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($List);
+
+		return $Result;
+
+	}
+
 	}
 
 ?>

@@ -23,6 +23,17 @@ class TaskBAO{
 
 		return $Result;
 
+	}
+
+	public function findByUser($user)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->findByUser($user);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;
 	} 	
 
 
