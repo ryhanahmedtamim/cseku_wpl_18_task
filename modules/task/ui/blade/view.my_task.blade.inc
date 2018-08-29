@@ -13,10 +13,13 @@ include_once UTILITY.'class.util.inc';
 
 	$globalUser = $_SESSION["globalUser"];
 
-	$user = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //
-	$ID = $user->getUniversityID();
+	$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
+	$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
+	$ID = $userPositions->getUniversityID();
 	$User = new User();
 	$User->setID($ID);
-	$my_task = $_TaskBAO->findByUser($user);
+
+	$my_task = $_TaskBAO->findByUser($User);
+	//print_r($ID);
 
 ?>

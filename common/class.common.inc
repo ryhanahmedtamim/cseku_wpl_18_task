@@ -356,7 +356,9 @@ class PageUtil{
     public static $Task='my_cal.php';
     public static $Assign_My_Task = 'assign_my_task.php';
     public static $MANAGE_CATEGORY = 'manage_category.php';
-    public static $MY_TASK = 'my_taks.php';
+    public static $MY_TASK = 'my_task.php';
+    public static $ASSIGN_TASK = 'assign_task.php';
+    public static $ASSIGN_TASK_AJAX = 'assign_task_ajax.php';
     
 }
 
@@ -503,6 +505,10 @@ class RouteUtil{
          //MANAGE_CATEGORY
          self::$s_Routes[PageUtil::$MANAGE_CATEGORY]  =   "modules/task/ui/view.manage_category.inc";
          self::$s_Routes[PageUtil::$MY_TASK] = "modules/task/ui/view.my_task.inc";
+         //ASSIGN_TASK
+         self::$s_Routes[PageUtil::$ASSIGN_TASK] = "modules/task/ui/view.assign_task.inc";
+         //ASSIGN_TASK_AJAX
+         self::$s_Routes[PageUtil::$ASSIGN_TASK_AJAX] = "modules/task/ui/ajax/view.assign_task.ajax.inc";
       
     }
 

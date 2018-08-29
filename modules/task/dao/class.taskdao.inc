@@ -55,7 +55,7 @@ include_once COMMON.'class.common.task.inc';
 	public function findByUser($user)
 	{
 		$List = array();
-		$Task = new Task();
+		
 		$id = $user->getID();
 
 		$SQL = "SELECT * FROM `tms_task` WHERE `tms_task`.`assign_to` = '$id'";
@@ -66,7 +66,7 @@ include_once COMMON.'class.common.task.inc';
 
 		for($i = 0; $i < sizeof($rows); $i++) {
 			$row = $rows[$i];
-			$task = new Task_Category();
+			$Task = new Task();
 
 		    $Task->setID ( $row['id']);
 		    $Task->setTitle($row['task_name']);
@@ -80,6 +80,8 @@ include_once COMMON.'class.common.task.inc';
 		    $List[]=$Task;
    
 		}
+
+		//print_r($List);
 
 
 		$Result = new Result();

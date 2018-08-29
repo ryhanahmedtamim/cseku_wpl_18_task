@@ -1,7 +1,7 @@
 <?php
 
 include_once 'blade/view.task_category.blade.inc';
-include_once 'blade/view.assign_my_task.blade.inc';
+include_once 'blade/view.assign_task.blade.inc';
 include_once COMMON.'class.common.inc';
 
 ?>
@@ -21,6 +21,26 @@ include_once COMMON.'class.common.inc';
               	<input type="text" name="taskName" class="form-control" placeholder="Task Name" />
 			  	</div>
 			</div>
+
+			<div class="form-group">
+              	<label class="control-label col-sm-4" for="email">Assign To (email):</label>
+              	<div class="col-sm-6">
+              	<input type="email" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"  />
+			  	</div>
+			  	
+			  	
+			  	<div>
+			  		<p> 
+			  			<b>
+			  				<span id="txtHint">
+			  				
+			  				</span>
+			  			</b>
+			  		</p>
+			  	</div>
+			</div>
+
+			
 			  
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="date">Date:</label>
@@ -79,6 +99,7 @@ include_once COMMON.'class.common.inc';
 			    </div>
             </div> 
 		</form>
+
 
 	</div>
 	</div>
