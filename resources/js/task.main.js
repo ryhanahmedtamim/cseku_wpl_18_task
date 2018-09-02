@@ -10,7 +10,23 @@ function showHint(str) {
                 document.getElementById("txtHint").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","?ajax=1", true);
+        xmlhttp.open("GET","assign_task_ajax.php?ajax=1&&searchName="+str, true);
         xmlhttp.send();
     }
+}
+
+function validTask() {
+    
+     var st = document.getElementById("txtHint").innerText;
+     var email = document.getElementById("taskEamil");
+
+      if(st.value == "Searching...")
+      {
+         email.setCustomValidity("Invalid Email");
+      }
+      else
+      {
+        //email.setCustomValidity(st);
+      }
+        
 }

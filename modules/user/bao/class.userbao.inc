@@ -144,6 +144,18 @@ Class UserBAO{
 
 	}
 
+	public function findUserDetailsByEmail($email){
+
+
+		$Result = new Result();	
+		$Result = $this->_UserDAO->findUserByEmail($email);
+			
+
+		return $Result;
+
+
+	}
+
 	//read an user with role information object based on its id form user object
 	public function readUserRolesPositions($User){
 

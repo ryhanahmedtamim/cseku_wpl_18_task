@@ -18,18 +18,17 @@ include_once COMMON.'class.common.inc';
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="taskName">Task Name:</label>
               	<div class="col-sm-6">
-              	<input type="text" name="taskName" class="form-control" placeholder="Task Name" />
+              	<input type="text" name="taskName" class="form-control" placeholder="Task Name" required autofocus value="<?php 
+					if(isset($_GET['edit'])) echo $Task;  ?>" />
 			  	</div>
 			</div>
 
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="email">Assign To (email):</label>
               	<div class="col-sm-6">
-              	<input type="email" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"  />
-			  	</div>
-			  	
-			  	
-			  	<div>
+              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"  />
+
+              	<div>
 			  		<p> 
 			  			<b>
 			  				<span id="txtHint">
@@ -38,6 +37,10 @@ include_once COMMON.'class.common.inc';
 			  			</b>
 			  		</p>
 			  	</div>
+			  	</div>
+			  	
+			  	
+			  	
 			</div>
 
 			
@@ -93,7 +96,7 @@ include_once COMMON.'class.common.inc';
 			<div class="form-group">        
               <div class="col-sm-offset-2 col-sm-9">
 
-              <button type="submit" value="addTask" name="addTask">Add Task</button>
+              <button type="submit" value="addTask" name="addTask" onclick="validTask()">Add Task</button>
     
 						
 			    </div>

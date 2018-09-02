@@ -61,6 +61,7 @@ if(isset($page)){
 }
 
 // adding menu code here
+if(!(isset($_GET['ajax']))){
 include_once $template_link.'menu.inc'; 
 
 ?>
@@ -102,7 +103,7 @@ include_once $template_link.'menu.inc';
                 //do not show the header for login page
                 if(!no_layout_page($page))
                     include $template_link.'header.inc'; 
-                
+                }
             ?>        
         </div>        
       
@@ -116,6 +117,7 @@ include_once $template_link.'menu.inc';
         <div id="footer" style="background-color:LightSteelBlue">
 
         	<?php 
+            if(!(isset($_GET['ajax']))){
                 if(strcasecmp($page, PageUtil::$PRINT_REGISTRATION)!=0){
 
         		      include $template_link.'footer.inc'; 
@@ -129,3 +131,6 @@ include_once $template_link.'menu.inc';
 </div>    
 </body>
 </html>
+<?php
+}
+?>

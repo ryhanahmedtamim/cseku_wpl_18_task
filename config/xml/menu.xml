@@ -881,6 +881,7 @@
 			<Menu>
 				<ParentMenu></ParentMenu>
 				<Title>Task</Title>
+				<Link>assign_task_ajax.php</Link>
 					<Permissions>
 					<Permission>TASK_C</Permission>
 					<Permission>TASK_R</Permission>
@@ -961,6 +962,7 @@
 				</Permissions>
 			</Menu>
 
+			
 			<Menu>
 				<ParentMenu>My Task</ParentMenu>
 				<Title>Show My task</Title>
@@ -971,7 +973,7 @@
 					<Permission>TASK_D</Permission>	
 					<Permission>TASK_R</Permission>
 				</Permissions>
-			</Menu>		
+			</Menu>				
 	
 </Menus>
 
