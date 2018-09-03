@@ -34,6 +34,7 @@ include_once COMMON.'class.common.inc';
 			<th>Details</th>
 			<th>Finish Date</th>
 			<th>Assign Date</th>
+			<th>Assign By</th>
 		</tr>
 		<?php
 		for($i = 0; $i < sizeof($tasks); $i++) {
@@ -45,7 +46,8 @@ include_once COMMON.'class.common.inc';
 			    <td> <?php echo $task->getTitle(); ?></td>
 			    <td> <?php echo $task->getDetails(); ?></td>
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
-			    <td> <?php echo $task->getAssignDate(); ?></td>			    
+			    <td> <?php echo $task->getAssignDate(); ?></td>	
+			    <td> <?php echo $task->getAssignBy(); ?></td>		    
 	    <?php
 		}
 

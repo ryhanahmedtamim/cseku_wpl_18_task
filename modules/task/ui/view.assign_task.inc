@@ -19,14 +19,14 @@ include_once COMMON.'class.common.inc';
               	<label class="control-label col-sm-4" for="taskName">Task Name:</label>
               	<div class="col-sm-6">
               	<input type="text" name="taskName" class="form-control" placeholder="Task Name" required autofocus value="<?php 
-					if(isset($_GET['edit'])) echo $Task;  ?>" />
+					if(isset($_GET['editTask'])) echo $_Task->getTitle();  ?>" />
 			  	</div>
 			</div>
 
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="email">Assign To (email):</label>
               	<div class="col-sm-6">
-              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"  />
+              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"  value="<?php if(isset($_GET['editTask'])) echo $_Task->getAssignTo();  ?>" />
 
               	<div>
 			  		<p> 
@@ -48,7 +48,9 @@ include_once COMMON.'class.common.inc';
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="date">Date:</label>
               	<div class="col-sm-6">
-			  	<input type="date" name="date" class="form-control" placeholder="Date" required/>
+			  	<input type="date" name="date" class="form-control" placeholder="Date" required
+			  	value="<?php if(isset($_GET['editTask'])) echo $_Task->getLastDateOfFinish();  ?>"
+			  	/>
 
 			  	</div>
 			</div>
@@ -66,18 +68,30 @@ include_once COMMON.'class.common.inc';
 							
 								$CategoryList = $Result->getResultObject();					
 							?>
-							<select name="Category" class="form-control" required>
+							<select name="selectDiscipline" class="form-control" 
+							required autofocus readonly>
 								<option selected disabled>Select Category</option>
 								<?php
 								for ($i = 0; $i<sizeof($CategoryList); $i++){
 									$Category = $CategoryList[$i];
-									?>								
+									?>
+									<?php
 										
-										<option value="<?php echo $Category->getCategory();?>" > <?php echo $Category->getCategory(); ?> 
-										</option>
-										<?php
+										if ($_Task->getCategory() == $Category->getCategory() ){
+											?>
+											<option selected value = "<?php echo $Category->getCategory();?>" > <?php echo $Category->getCategory();?> 
+											</option>
+											<?php
+										}
+										else {
+
+											?>
+											<option value="<?php echo $Category->getCategory();?>" > <?php echo $Category->getCategory(); ?> 
+											</option>
+											<?php
 										}	
 									
+								}
 								?>	
 							</select>
 				</div>
@@ -87,24 +101,98 @@ include_once COMMON.'class.common.inc';
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="taskDetails">Task Details:</label>
               	<div class="col-sm-6">
-              	<textarea name="taskDetails" rows="4" cols="26" class="form-control" placeholder="Details" required></textarea>
+              	<textarea name="taskDetails" rows="4" cols="26" class="form-control" placeholder="Details" required >
+
+              	<?php 
+					if(isset($_GET['editTask'])) echo $_Task->getDetails();  ?>
+              		
+              	</textarea>
 			  	</div>
 			</div>	
 
 
 			
 			<div class="form-group">        
-              <div class="col-sm-offset-2 col-sm-9">
-
-              <button type="submit" value="addTask" name="addTask" onclick="validTask()">Add Task</button>
-    
-						
-			    </div>
+              <div class="col-sm-offset-2 col-sm-10">	
+						<?php
+						if(isset($_GET['editTask']))
+						{
+							?>
+							<button type="submit" name="updateTask">update</button>
+							<?php
+						}
+						else
+						{
+							?>
+							<button type="submit" name="addTask">save</button>
+							<?php
+						}
+						?>
+				</div>
             </div> 
 		</form>
 
 
 	</div>
 	</div>
+
+
+	<div class="panel-body">
+
+
+	<table class="table table-bordered">
+
+	<?php
+	
+	
+	//$Result = $_CategoryBAO->getAllCategory();
+
+	//if DAO access is successful to load all the Roles then show them one by one
+	if($my_task->getIsSuccess()){
+
+		$tasks = $my_task->getResultObject();
+	?>
+		<tr>
+			<th>Task Name</th>
+			<th>Task Category</th>
+			<th>Task Details</th>
+			<th>Assign Date</th>
+			<th>Finish Date</th>
+			
+			<th>Assign To</th>
+		</tr>
+		<?php
+
+			
+
+			for($i = 0; $i < sizeof($tasks); $i++) {
+
+			$task = $tasks[$i];
+
+			?>
+		    <tr>
+			    <td> <?php echo $task->getTitle(); ?></td>
+			    <td> <?php echo $task->getCategory(); ?></td>
+			    <td> <?php echo $task->getDetails(); ?></td>
+			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
+			    <td> <?php echo $task->getAssignDate(); ?></td>	
+			    <td> <?php echo $task->getAssignTo(); ?></td>	
+			     <td><a href="?editTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to edit !'); " >edit</a></td>
+			    <td><a href="?deleteTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to delete !'); " >delete</a></td>
+		    </tr>	    
+	    <?php
+		}
+
+	}
+	else{
+
+		echo $Result->getResultObject(); //giving failure message
+	}
+
+	?>
+	</table>
+	</div>
+</div>
+
 
 	

@@ -34,7 +34,43 @@ class TaskBAO{
 			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
 
 		return $Result;
+	}
+
+
+
+	public function findMyTask($user)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->findMyTask($user);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;
 	} 	
+
+
+	public function findTask($Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->findTask($Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;
+	}
+
+	public function deleteTask($Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->deleteTask($Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;
+	}
 
 
 }

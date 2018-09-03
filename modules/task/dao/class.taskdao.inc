@@ -58,7 +58,7 @@ include_once COMMON.'class.common.task.inc';
 		
 		$id = $user->getID();
 
-		$SQL = "SELECT * FROM `tms_task` WHERE `tms_task`.`assign_to` = '$id'";
+		$SQL = "SELECT * FROM `ums_user`,`tms_task` WHERE tms_task.assign_by = ums_user.UniversityID AND tms_task.assign_to = '$id'";
 
 		$SQL = $this->_DB->doQuery($SQL);
 
@@ -73,7 +73,50 @@ include_once COMMON.'class.common.task.inc';
 		    $Task->setDetails($row['details']);
 		    $Task->setLastDateOfFinish($row['date_of_submission']);
 		    $Task->setAssignDate($row['date_of_assign']);
-		    $Task->setAssignTo($row['assign_to']);
+		    $assign_to = $row['FirstName'] ." ".$row['MiddleName']." ".$row['LastName']; 
+		    $Task->setAssignBy($assign_to);
+		    $Task->setAssignTo($row['assign_by']);	
+		    $Task->setCategory($row['task_category']);	   
+
+		    $List[]=$Task;
+   
+		}
+
+		//print_r($List);
+
+
+		$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($List);
+
+		return $Result;
+
+	}
+
+
+	public function findMyTask($user)
+	{
+		$List = array();
+		
+		$id = $user->getID();
+
+		$SQL = "SELECT * FROM `ums_user`,`tms_task` WHERE tms_task.assign_to = ums_user.UniversityID AND tms_task.assign_by = '$id'";
+
+		$SQL = $this->_DB->doQuery($SQL);
+
+		$rows = $this->_DB->getAllRows();
+
+		for($i = 0; $i < sizeof($rows); $i++) {
+			$row = $rows[$i];
+			$Task = new Task();
+
+		    $Task->setID ( $row['id']);
+		    $Task->setTitle($row['task_name']);
+		    $Task->setDetails($row['details']);
+		    $Task->setLastDateOfFinish($row['date_of_submission']);
+		    $Task->setAssignDate($row['date_of_assign']);
+		    $assign_to = $row['FirstName'] ." ".$row['MiddleName']." ".$row['LastName']; 
+		    $Task->setAssignTo($assign_to);
 		    $Task->setAssignBy($row['assign_by']);	
 		    $Task->setCategory($row['task_category']);	   
 
@@ -90,6 +133,59 @@ include_once COMMON.'class.common.task.inc';
 
 		return $Result;
 
+	}
+
+
+	public function findTask($Task)
+	{
+		
+		$Result = new Result();
+
+		$id = $Task->getID();
+
+		$SQL = "SELECT * FROM `ums_user`,`tms_task` WHERE tms_task.assign_to = ums_user.UniversityID AND tms_task.id = '$id'";
+
+		$SQL = $this->_DB->doQuery($SQL);
+
+		$row = $this->_DB->getAllRows();
+		//print_r($row);
+		$row = $row['0'];
+
+		if(sizeof($row)>0){
+			$Task = new Task();
+
+		    $Task->setID ( $row['id']);
+		    $Task->setTitle($row['task_name']);
+		    $Task->setDetails($row['details']);
+		    $Task->setLastDateOfFinish($row['date_of_submission']);
+		    $Task->setAssignDate($row['date_of_assign']);
+		    $assign_to = $row['Email']; 
+		    $Task->setAssignTo($assign_to);
+		    $Task->setAssignBy($row['assign_by']);	
+		    $Task->setCategory($row['task_category']);	   
+
+			//$Result = new Result();
+			$Result->setIsSuccess(1);
+			$Result->setResultObject($Task);
+		}
+
+		return $Result;
+		//	print_r($Result);
+	}
+
+	public function deleteTask($Task)
+	{
+		$Id = $Task->getID();
+
+		$SQL = "DELETE FROM `tms_task` WHERE `tms_task`.`id` = '$Id'";
+		
+		$SQL = $this->_DB->doQuery($SQL);		
+
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		
+
+		return $Result;
 	}
 
 	}
