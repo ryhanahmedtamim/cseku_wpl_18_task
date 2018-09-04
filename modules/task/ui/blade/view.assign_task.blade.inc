@@ -63,6 +63,47 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 
 	}
 
+
+	if(isset($_POST['updateTask'])){
+		$_Task->setID ($_GET['editTask']);
+		$_Task->setTitle ($_DB->secureInput($_POST['taskName']));
+		$_Task->setCategory ($_DB->secureInput($_POST['Category']));
+		$_Task->setDetails ($_DB->secureInput($_POST['taskDetails']));
+		$_Task->setLastDateOfFinish ($_DB->secureInput($_POST['date']));
+
+
+
+		$_Task->setAssignDate ($_DB->secureInput(date("Y-m-d")));
+
+		//print_r( $globalUser);
+		$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
+		$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
+
+
+		$userEmail = $_POST['email'];
+		$result = $_UserBAO->findUserDetailsByEmail($userEmail);
+		//$_Task->setAssignTo($userPositions->getUniversityID());
+		$userDetails = $result->getResultObject();
+
+		$_Task->setAssignTo($userDetails->getUniversityID());
+
+		$_Task->setAssignBy($userPositions->getUniversityID());	
+
+		
+
+		$Result = $_TaskBAO->updateTask($_Task);	
+
+//		print_r($_Task);	
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:assign_task.php");	
+		}
+			
+
+	}
+
+
 	if(isset($_GET['editTask']))
 	{
 		$Task = new Task();

@@ -52,6 +52,45 @@ include_once COMMON.'class.common.task.inc';
 		return $Result;
 	}
 
+
+
+
+	public function updateTask($Task)
+	{
+
+		$_Task = $Task;
+
+		$id = $_Task->getID();
+		$title = $_Task->getTitle();
+		$details = $_Task->getDetails();
+		$lastDateOfFinish = $_Task->getLastDateOfFinish();
+		$assignDate = $_Task->getAssignDate();
+		$assignTo = $_Task->getAssignTo();
+		$assignBy = $_Task->getAssignBy();
+		$category = $_Task->getCategory();
+
+		$SQL = "UPDATE `tms_task` SET `details`='$details',`date_of_submission` = '$lastDateOfFinish',`task_category`='$category',`task_name`='$title',`assign_to` = '$assignTo' WHERE `tms_task`.`id` = '$id';";
+
+		//beginning a transaction 	
+		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+		//creating task
+		$SQL = $this->_DB->doQuery($SQL);
+
+
+
+
+
+		$this->_DB->getConnection()->commit();
+
+
+
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($SQL);
+
+		return $Result;
+	}
+
 	public function findByUser($user)
 	{
 		$List = array();

@@ -73,5 +73,16 @@ class TaskBAO{
 	}
 
 
+	public function updateTask($Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->updateTask($Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;	
+	}
+
 }
 ?>
