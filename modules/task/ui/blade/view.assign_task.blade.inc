@@ -42,12 +42,12 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 		$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
 
 
-		if(isset($_POST['assingTo'])){
+		$userEmail = $_POST['email'];
+		$result = $_UserBAO->findUserDetailsByEmail($userEmail);
+		//$_Task->setAssignTo($userPositions->getUniversityID());
+		$userDetails = $result->getResultObject();
 
-		}
-		else{
-			$_Task->setAssignTo($userPositions->getUniversityID());
-		}	
+		$_Task->setAssignTo($userDetails->getUniversityID());
 
 		$_Task->setAssignBy($userPositions->getUniversityID());	
 

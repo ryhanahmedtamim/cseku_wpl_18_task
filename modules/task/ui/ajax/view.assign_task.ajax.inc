@@ -16,7 +16,8 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 		if($result->getIsSuccess()){
 
 			$userDetails = $result->getResultObject();
-			echo $userDetails->getFirstName()." ".$userDetails->getMiddleName()." " . $userDetails->getLastName();
+			echo $userDetails->getFirstName()." ".$userDetails->getMiddleName()." " . $userDetails->getLastName();//UniversityID
+			//print_r($userDetails);
 	}
 	else
 	{

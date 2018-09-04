@@ -68,7 +68,7 @@ include_once COMMON.'class.common.inc';
 							
 								$CategoryList = $Result->getResultObject();					
 							?>
-							<select name="selectDiscipline" class="form-control" 
+							<select name="Category" class="form-control" 
 							required autofocus readonly>
 								<option selected disabled>Select Category</option>
 								<?php
