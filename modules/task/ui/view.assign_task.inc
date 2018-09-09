@@ -118,13 +118,13 @@ include_once COMMON.'class.common.inc';
 						if(isset($_GET['editTask']))
 						{
 							?>
-							<button type="submit" name="updateTask">update</button>
+							<button type="submit" name="updateTask" onclick="validTask()">update</button>
 							<?php
 						}
 						else
 						{
 							?>
-							<button type="submit" name="addTask">save</button>
+							<button type="submit" name="addTask" onclick="validTask()">save</button>
 							<?php
 						}
 						?>

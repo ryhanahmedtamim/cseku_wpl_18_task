@@ -1,5 +1,8 @@
 
 function showHint(str) {
+  var email = document.getElementById("taskEamil");
+
+     email.setCustomValidity("");
     if (str.length == 0) { 
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -20,13 +23,13 @@ function validTask() {
      var st = document.getElementById("txtHint").innerText;
      var email = document.getElementById("taskEamil");
 
-      if(st.value == "Searching...")
+     //email.setCustomValidity("");
+
+      if(st.trim() == "Searching...")
       {
+        console.log(st);
          email.setCustomValidity("Invalid Email");
+
       }
-      else
-      {
-        //email.setCustomValidity(st);
-      }
-        
+              
 }
