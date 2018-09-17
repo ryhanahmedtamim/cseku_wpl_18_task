@@ -7,9 +7,10 @@ class Task{
     private $_Details;
     private $_LastDateOfFinish;
     private $_AssignDate;
-    private $_AssignTo;
-    private $_AssignBy;
-	private $_Category;    
+    private $_Creator;
+	private $_Category;  
+    private $_Progress;
+    private $_LastDateOfUpdate;  
 
 
     public function setID ( $ID ) {
@@ -53,6 +54,60 @@ class Task{
         return $this->_AssignDate;
     }
 
+    public function setTaskCreator ( $creator ) {
+        $this->_Creator = $creator;
+    }
+
+    public function getTaskCreator () {
+        return $this->_Creator;
+    }
+
+    public function setProgress ( $progress ) {
+        $this->_Progress = $progress;
+    }
+
+    public function getProgress () {
+        return $this->_Progress;
+    }
+
+
+    public function setLastDateOfUpdate ( $Date ) {
+        $this->_LastDateOfUpdate = $Date;
+    }
+
+    public function getLastDateOfUpdate () {
+        return $this->_LastDateOfUpdate;
+    }
+
+
+
+    public function setCategory ( $Category ) {
+        $this->_Category = $Category;
+    }
+
+    public function getCategory () {
+        return $this->_Category;
+    }
+
+}
+
+
+class Assign 
+{
+    private $_TaskId;
+    private $_AssignTo;
+    private $_AssignBy;
+    private $_Date;
+
+    public function setTaskId ( $ID ) {
+        $this->_TaskId = $ID;
+    }
+
+    public function detTaskId () {
+        return $this->_TaskId;
+    }
+
+
     public function setAssignTo ( $AssignTo ) {
         $this->_AssignTo = $AssignTo;
     }
@@ -69,13 +124,14 @@ class Task{
         return $this->_AssignBy;
     }
 
-    public function setCategory ( $Category ) {
-        $this->_Category = $Category;
+    public function setDate ( $date ) {
+        $this->_Date = $date;
     }
 
-    public function getCategory () {
-        return $this->_Category;
+    public function getDate () {
+        return $this->_Date;
     }
+
 
 }
 

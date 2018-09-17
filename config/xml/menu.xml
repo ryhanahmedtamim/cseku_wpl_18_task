@@ -912,24 +912,13 @@
 				</Permissions>
 			</Menu>
 
-			<Menu>
-				<ParentMenu>Manage Task</ParentMenu>
-				<Title>Assign My Task</Title>
-				<Link>assign_my_task.php</Link>
-				<Permissions>
-					<Permission>TASK_C</Permission>
-					<Permission>TASK_U</Permission>									
-					<Permission>TASK_D</Permission>	
-					<Permission>TASK_R</Permission>
-				</Permissions>
-			</Menu>
-
+			
 
 
 			<Menu>
 				<ParentMenu>Manage Task</ParentMenu>
-				<Title>Assign Task</Title>
-				<Link>assign_task.php</Link>
+				<Title>Creat Task</Title>
+				<Link>create_task.php</Link>
 				<Permissions>
 					<Permission>TASK_C</Permission>
 					<Permission>TASK_U</Permission>									

@@ -4,6 +4,7 @@ include_once 'blade/view.task_category.blade.inc';
 include_once 'blade/view.assign_task.blade.inc';
 include_once COMMON.'class.common.inc';
 
+if(!isset($_GET['assignTo'])){
 ?>
 
 <div class="panel panel-default">
@@ -21,29 +22,7 @@ include_once COMMON.'class.common.inc';
               	<input type="text" name="taskName" class="form-control" placeholder="Task Name" required autofocus value="<?php 
 					if(isset($_GET['editTask'])) echo $_Task->getTitle();  ?>" />
 			  	</div>
-			</div>
-
-			<div class="form-group">
-              	<label class="control-label col-sm-4" for="email">Assign To (email):</label>
-              	<div class="col-sm-6">
-              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"  value="<?php if(isset($_GET['editTask'])) echo $_Task->getAssignTo();  ?>" />
-
-              	<div>
-			  		<p> 
-			  			<b>
-			  				<span id="txtHint">
-			  				
-			  				</span>
-			  			</b>
-			  		</p>
-			  	</div>
-			  	</div>
-			  	
-			  	
-			  	
-			</div>
-
-			
+			</div>			
 			  
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="date">Date:</label>
@@ -155,11 +134,10 @@ include_once COMMON.'class.common.inc';
 		<tr>
 			<th>Task Name</th>
 			<th>Task Category</th>
-			<th>Task Details</th>
 			<th>Assign Date</th>
 			<th>Finish Date</th>
-			
-			<th>Assign To</th>
+			<th>Last Update Date</th>
+			<th>Progress</th>
 		</tr>
 		<?php
 
@@ -173,12 +151,14 @@ include_once COMMON.'class.common.inc';
 		    <tr>
 			    <td> <?php echo $task->getTitle(); ?></td>
 			    <td> <?php echo $task->getCategory(); ?></td>
-			    <td> <?php echo $task->getDetails(); ?></td>
-			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
 			    <td> <?php echo $task->getAssignDate(); ?></td>	
-			    <td> <?php echo $task->getAssignTo(); ?></td>	
+			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
+			    <td><?php echo $task->getLastDateOfUpdate();?></td>
+			    
+			    <td> <?php echo $task->getProgress(); ?></td>	
 			     <td><a href="?editTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to edit !'); " >edit</a></td>
 			    <td><a href="?deleteTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to delete !'); " >delete</a></td>
+			     <td><a href="?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>
 		    </tr>	    
 	    <?php
 		}
@@ -193,6 +173,57 @@ include_once COMMON.'class.common.inc';
 	</table>
 	</div>
 </div>
+<?php } 
+else{
+
+?>
+
+<div class="panel panel-default">
+    
+    <div class="panel-heading">Task Category</div>
+    
+    <div class="panel-body">
+
+	<div id="form">
+		<form method="post" class="form-horizontal">
+				
+			<div class="form-group">
+              	<label class="control-label col-sm-4" for="email">Assign To (email):</label>
+              	<div class="col-sm-6">
+              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"   />
+
+              	<div>
+			  		<p> 
+			  			<b>
+			  				<span id="txtHint">
+			  				
+			  				</span>
+			  			</b>
+			  		</p>
+			  	</div>
+			  	</div>
+			  	
+			  	
+			  	
+			</div> 
+
+
+
+		        <div class="form-group">        
+	              <div class="col-sm-offset-2 col-sm-10">	
+						
+							<button type="submit" name="Assign">Assign</button>
+							
+				</div>
+				</div>		
+
+		</form>
+
+	</div>
+	</div>
+
+
+	<?php } ?>
 
 
 	

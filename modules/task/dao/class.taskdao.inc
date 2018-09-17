@@ -26,11 +26,12 @@ include_once COMMON.'class.common.task.inc';
 		$details = $_Task->getDetails();
 		$lastDateOfFinish = $_Task->getLastDateOfFinish();
 		$assignDate = $_Task->getAssignDate();
-		$assignTo = $_Task->getAssignTo();
-		$assignBy = $_Task->getAssignBy();
+		$task_creator = $_Task->getTaskCreator();
+		$progress = $_Task->getProgress();
 		$category = $_Task->getCategory();
+		$LastDateOfUpdate = $_Task->getLastDateOfUpdate();
 
-		$SQL = "INSERT INTO `tms_task` (`id`, `task_name`, `task_category`, `assign_to`, `assign_by`, `date_of_assign`, `date_of_submission`, `details`) VALUES (NULL, '$title', '$category', '$assignTo', '$assignBy', '$assignDate', '$lastDateOfFinish', '$details');";
+		$SQL = "INSERT INTO `tms_task` (`id`, `task_name`, `task_creator`, `task_category`, `date_of_assign`, `date_of_submission`,`last_date_of_update`, `progress`, `details`) VALUES (NULL, '$title', '$task_creator', '$category', '$assignDate', '$lastDateOfFinish','$LastDateOfUpdate', '$progress', '$details')";
 
 		//beginning a transaction 	
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
@@ -47,7 +48,7 @@ include_once COMMON.'class.common.task.inc';
 
 	 	$Result = new Result();
 		$Result->setIsSuccess(1);
-		$Result->setResultObject($SQL);
+		//$Result->setResultObject($SQL);
 
 		return $Result;
 	}
@@ -59,17 +60,15 @@ include_once COMMON.'class.common.task.inc';
 	{
 
 		$_Task = $Task;
-
 		$id = $_Task->getID();
 		$title = $_Task->getTitle();
 		$details = $_Task->getDetails();
 		$lastDateOfFinish = $_Task->getLastDateOfFinish();
 		$assignDate = $_Task->getAssignDate();
-		$assignTo = $_Task->getAssignTo();
-		$assignBy = $_Task->getAssignBy();
+		$LastDateOfUpdate = $_Task->getLastDateOfUpdate();
 		$category = $_Task->getCategory();
 
-		$SQL = "UPDATE `tms_task` SET `details`='$details',`date_of_submission` = '$lastDateOfFinish',`task_category`='$category',`task_name`='$title',`assign_to` = '$assignTo' WHERE `tms_task`.`id` = '$id';";
+		$SQL = "UPDATE `tms_task` SET `details`='$details',`date_of_submission` = '$lastDateOfFinish',`task_category`='$category',`task_name`='$title',`last_date_of_update` = '$LastDateOfUpdate' WHERE `tms_task`.`id` = '$id';";
 
 		//beginning a transaction 	
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
@@ -139,7 +138,7 @@ include_once COMMON.'class.common.task.inc';
 		
 		$id = $user->getID();
 
-		$SQL = "SELECT * FROM `ums_user`,`tms_task` WHERE tms_task.assign_to = ums_user.UniversityID AND tms_task.assign_by = '$id'";
+		$SQL = "SELECT * FROM `tms_task` WHERE  tms_task.task_creator = '$id'";
 
 		$SQL = $this->_DB->doQuery($SQL);
 
@@ -154,9 +153,9 @@ include_once COMMON.'class.common.task.inc';
 		    $Task->setDetails($row['details']);
 		    $Task->setLastDateOfFinish($row['date_of_submission']);
 		    $Task->setAssignDate($row['date_of_assign']);
-		    $assign_to = $row['FirstName'] ." ".$row['MiddleName']." ".$row['LastName']; 
-		    $Task->setAssignTo($assign_to);
-		    $Task->setAssignBy($row['assign_by']);	
+		    $Task->setProgress($row['progress']); 
+		    //$Task->setAssignTo($assign_to);
+		    $Task->setLastDateOfUpdate($row['last_date_of_update']);	
 		    $Task->setCategory($row['task_category']);	   
 
 		    $List[]=$Task;
@@ -182,7 +181,7 @@ include_once COMMON.'class.common.task.inc';
 
 		$id = $Task->getID();
 
-		$SQL = "SELECT * FROM `ums_user`,`tms_task` WHERE tms_task.assign_to = ums_user.UniversityID AND tms_task.id = '$id'";
+		$SQL = "SELECT * FROM `tms_task` WHERE  tms_task.id = '$id'";
 
 		$SQL = $this->_DB->doQuery($SQL);
 
@@ -198,9 +197,9 @@ include_once COMMON.'class.common.task.inc';
 		    $Task->setDetails($row['details']);
 		    $Task->setLastDateOfFinish($row['date_of_submission']);
 		    $Task->setAssignDate($row['date_of_assign']);
-		    $assign_to = $row['Email']; 
-		    $Task->setAssignTo($assign_to);
-		    $Task->setAssignBy($row['assign_by']);	
+		    //$assign_to = $row['Email']; 
+		    $Task->setProgress($row['progress']);
+		    //$Task->setAssignBy($row['assign_by']);	
 		    $Task->setCategory($row['task_category']);	   
 
 			//$Result = new Result();

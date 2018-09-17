@@ -3,6 +3,9 @@ function showHint(str) {
   var email = document.getElementById("taskEamil");
 
      email.setCustomValidity("");
+
+
+
     if (str.length == 0) { 
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -27,7 +30,7 @@ function validTask() {
 
       if(st.trim() == "Searching...")
       {
-        console.log(st);
+       // console.log(st);
          email.setCustomValidity("Invalid Email");
 
       }

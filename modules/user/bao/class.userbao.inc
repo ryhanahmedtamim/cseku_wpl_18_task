@@ -149,7 +149,8 @@ Class UserBAO{
 
 		$Result = new Result();	
 		$Result = $this->_UserDAO->findUserByEmail($email);
-			
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in UserDAO.readUserDetails()");	
 
 		return $Result;
 
