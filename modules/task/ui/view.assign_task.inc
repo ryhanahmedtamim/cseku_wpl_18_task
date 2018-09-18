@@ -207,12 +207,24 @@ else{
 			  	
 			</div> 
 
+			<div class="form-group">
+              	<label class="control-label col-sm-4" for="comment">Comment:</label>
+              	<div class="col-sm-6">
+              	<textarea name="comment" rows="4" cols="26" class="form-control" placeholder="Comment" required >
+
+              	<?php 
+					if(isset($_GET['comment'])) echo $_Task->getDetails();  ?>
+              		
+              	</textarea>
+			  	</div>
+			</div>
+
 
 
 		        <div class="form-group">        
 	              <div class="col-sm-offset-2 col-sm-10">	
 						
-							<button type="submit" name="Assign">Assign</button>
+							<button type="submit" name="Assign" onclick="validTask()">Assign</button>
 							
 				</div>
 				</div>		

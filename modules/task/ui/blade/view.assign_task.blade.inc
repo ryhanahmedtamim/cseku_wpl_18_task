@@ -3,12 +3,14 @@ include_once MODULES_TASK.'bao/class.taskbao.inc';
 include_once MODULES_USER.'bao/class.userbao.inc';
 include_once MODULES_USER.'bao/class.rolebao.inc';
 include_once MODULES_USER.'bao/class.positionbao.inc';
+include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 	$_DB = DBUtil::getInstance();
 	$_Log= LogUtil::getInstance();
 	$_Task = new Task();
 	$_UserBAO = new UserBAO();
 	$_TaskBAO = new TaskBAO();
+	$_AssignBAO = new AssignBAO();
 
 	$globalUser = $_SESSION["globalUser"];
 
@@ -104,7 +106,7 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 	}
 
 
-	if(isset($_GET['Assign']))
+	if(isset($_POST['Assign']))
 	{
 		$Assign = new Assign();
 		$Assign->setTaskId($_GET['assignTo']);
@@ -117,10 +119,20 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 		$userDetails = $result->getResultObject();
 		$Assign->setAssignTo($userDetails->getUniversityID());
 		$Assign->setDate(date("Y-m-d"));
+		$Assign->setComment($_POST['comment']);
 
-		
+		$result = $_AssignBAO->assignTask($Assign);
 
-		print_r($Assign);
+		//print_r($Assign);
+
+		if($result->getIsSuccess()){
+	  		 
+	  		 header("Location:create_task.php");	
+		}
+		else
+		{
+			print_r($Assign);
+		}
 
 	}
 

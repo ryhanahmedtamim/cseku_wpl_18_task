@@ -1,6 +1,60 @@
 <?php
 
-class Task{
+
+class Assign 
+{
+    private $_TaskId;
+    private $_AssignTo;
+    private $_AssignBy;
+    private $_Date;
+    private $_Comment;
+
+    public function setTaskId ( $ID ) {
+        $this->_TaskId = $ID;
+    }
+
+    public function getTaskId () {
+        return $this->_TaskId;
+    }
+
+
+    public function setAssignTo ( $AssignTo ) {
+        $this->_AssignTo = $AssignTo;
+    }
+
+    public function getAssignTo () {
+        return $this->_AssignTo;
+    }
+
+    public function setAssignBy ( $AssignBy ) {
+        $this->_AssignBy = $AssignBy;
+    }
+
+    public function getAssignBy () {
+        return $this->_AssignBy;
+    }
+
+    public function setDate ( $date ) {
+        $this->_Date = $date;
+    }
+
+    public function getDate () {
+        return $this->_Date;
+    }
+
+    public function setComment ( $Comment ) {
+        $this->_Comment = $Comment;
+    }
+
+    public function getComment () {
+        return $this->_Comment;
+    }
+
+
+
+}
+
+class Task extends Assign{
     
     private $_ID;
     private $_Title;
@@ -92,48 +146,7 @@ class Task{
 }
 
 
-class Assign 
-{
-    private $_TaskId;
-    private $_AssignTo;
-    private $_AssignBy;
-    private $_Date;
 
-    public function setTaskId ( $ID ) {
-        $this->_TaskId = $ID;
-    }
-
-    public function detTaskId () {
-        return $this->_TaskId;
-    }
-
-
-    public function setAssignTo ( $AssignTo ) {
-        $this->_AssignTo = $AssignTo;
-    }
-
-    public function getAssignTo () {
-        return $this->_AssignTo;
-    }
-
-    public function setAssignBy ( $AssignBy ) {
-        $this->_AssignBy = $AssignBy;
-    }
-
-    public function getAssignBy () {
-        return $this->_AssignBy;
-    }
-
-    public function setDate ( $date ) {
-        $this->_Date = $date;
-    }
-
-    public function getDate () {
-        return $this->_Date;
-    }
-
-
-}
 
 
 class Task_Category{

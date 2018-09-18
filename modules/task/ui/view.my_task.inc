@@ -18,22 +18,13 @@ include_once COMMON.'class.common.inc';
 	if($my_task->getIsSuccess()){
 
 		$tasks = $my_task->getResultObject();
-		//print_r($tasks);
-
-		// $id = $_Task->getID();
-		// $title = $_Task->getTitle();
-		// $details = $_Task->getDetails();
-		// $lastDateOfFinish = $_Task->getLastDateOfFinish();
-		// $assignDate = $_Task->getAssignDate();
-		// $assignTo = $_Task->getAssignTo();
-		// $assignBy = $_Task->getAssignBy();
-		// $category = $_Task->getCategory();
+	
 	?>
 		<tr>
 			<th>Task Name</th>
-			<th>Details</th>
-			<th>Finish Date</th>
 			<th>Assign Date</th>
+			<th>Finish Date</th>
+			<th>Task Creator</th>
 			<th>Assign By</th>
 		</tr>
 		<?php
@@ -44,9 +35,9 @@ include_once COMMON.'class.common.inc';
 			?>
 		    <tr>
 			    <td> <?php echo $task->getTitle(); ?></td>
-			    <td> <?php echo $task->getDetails(); ?></td>
+			    <td> <?php echo $task->getAssignDate(); ?></td>
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
-			    <td> <?php echo $task->getAssignDate(); ?></td>	
+			   
 			    <td> <?php echo $task->getAssignBy(); ?></td>		    
 	    <?php
 		}
