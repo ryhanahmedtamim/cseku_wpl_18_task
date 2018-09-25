@@ -20,6 +20,6 @@ include_once UTILITY.'class.util.inc';
 	$User->setID($ID);
 
 	$my_task = $_TaskBAO->findByUser($User);
-	//print_r($ID);
+	//print_r ($my_task->getResultObject()[0]->getAssignBy());
 
 ?>

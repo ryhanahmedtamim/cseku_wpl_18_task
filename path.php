@@ -27,7 +27,7 @@ define('MODULES_REGISTRATION',MODULES.'/registration/');
 define('MODULES_RESULT',MODULES.'/result/');
 define('MODULES_ROUTINE',MODULES.'/routine/');
 define('MODULES_SURVEY',MODULES.'/survey/');
-define('MODULES_USER',MODULES.'/user/');
+define('MODULES_USER',MODULES.'user/');
 define('MODULES_VIDEO',MODULES.'/video/');
 define('MODULES_TASK',MODULES.'task/');
 

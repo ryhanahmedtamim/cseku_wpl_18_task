@@ -134,7 +134,7 @@ if(!isset($_GET['assignTo'])){
 		<tr>
 			<th>Task Name</th>
 			<th>Task Category</th>
-			<th>Assign Date</th>
+			<th>Creation Date</th>
 			<th>Finish Date</th>
 			<th>Last Update Date</th>
 			<th>Progress</th>

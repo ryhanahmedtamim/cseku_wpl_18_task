@@ -24,6 +24,17 @@ class AssignBAO{
 
 		return $Result;
 	}
+
+	public function findAllbyUserId($id)
+	{
+		$Result = new Result();	
+		$Result = $this->_AssignDao->findAllbyUserId($id);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in AssignDAO.assignTask($assign)");		
+
+		return $Result;
+	}
 	
 	
 
