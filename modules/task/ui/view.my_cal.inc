@@ -1,35 +1,13 @@
-<html>
 
-     <head>
-	    <script>
-		   function goLastMonth(month,year)
-		   {
-			   if(month==1)
-			   {
-				   --year;
-				   month=13;
-			   }
-			   document.location.href="<?php $_SERVER['PHP_SELF'];?>?month="+(month-1)+"&year="+year;
-			   
-		   }
-		   function goNextMonth(month,year)
-		   {
-			   if(month==12)
-			   {
-				   ++year;
-				   month=0;
-			   }
-			   document.location.href="<?php $_SERVER['PHP_SELF'];?>?month="+(month+1)+"&year="+year;
-			   
-		   }
-		   
-		
-		</script>
-	 
-	 
-	 </head>
-	 
-	 <body>
+
+<?php
+
+if(!(isset($_GET['showtask'])))
+{
+ ?>
+
+<div>
+
 	     <?php
 		 if(isset($_GET['day']))
 		 {  
@@ -97,12 +75,19 @@
 						   }
 
 						   if($i == $day1)
-						   {
-						   	echo "<td width='250px' height='50px' align='center' bgcolor = 'green'>".$i."</td>";
+						   {?>
+						   	<td width='250px' height='50px' align='center' bgcolor = 'green'>
+						   	<a href="?showtask=<?php echo strtotime("$year-$month-$i"); ?>" > <?php echo $i;?> </a>
+						   </td>
+						<?php
 						   }
 						   else
 						   {
-						   	echo "<td width='250px' height='50px' align='center'>".$i."</td>";
+						   	?>
+						   	<td width='250px' height='50px' align='center' >
+						   		<a href="?showtask=<?php echo strtotime("$year-$month-$i"); ?>" onclick="return confirm('sure to edit !'); " > <?php echo $i ;?> </a>
+						   		</td>
+						   <?php
 						   }
 
 						   
@@ -112,7 +97,20 @@
 				   ?>
 			</table>
 	 
-	 </body>
+</div>
+
+<?php
+}
+else
+{
+?>
+
+<div>
+	hello
+</div>
 
 
-</html>
+<?php
+
+}
+?>

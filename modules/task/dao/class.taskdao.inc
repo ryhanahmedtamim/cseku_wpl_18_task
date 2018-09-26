@@ -103,12 +103,6 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 
 		$all_assginedtask =  $AssignBAO->findAllbyUserId($id)->getResultObject();
 
-
-		//return $all_assginedtask;
-
-
-
-
 		for($i=0; $i<sizeof($all_assginedtask);$i++)
 		{
 			$taskId = $all_assginedtask[$i]->getTaskId();
