@@ -12,6 +12,19 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 
 	$globalUser = $_SESSION["globalUser"];
 
+	$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
+	$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
+	$ID = $userPositions->getUniversityID();
+	$User = new User();
+	$User->setID($ID);
+	$result;
+
+
+	if(isset($_GET['showtask']))
+	{
+		$result = $_TaskBAO->findMyByDate($User,$_GET['showtask']);
+	}
+
 
 	
 

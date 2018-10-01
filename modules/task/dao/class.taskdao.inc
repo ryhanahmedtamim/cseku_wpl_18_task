@@ -3,6 +3,9 @@
 include_once COMMON.'class.common.inc';
 include_once UTILITY.'class.util.inc';
 include_once COMMON.'class.common.task.inc';
+include_once MODULES_TASK.'bao/class.assignbao.inc';
+include_once COMMON.'class.common.user.inc';
+include_once MODULES_USER.'dao/class.userdao.inc';
 
 	class TaskDAO{
 	private $_DB;
@@ -96,14 +99,19 @@ include_once COMMON.'class.common.task.inc';
 		
 		$id = $user->getID();
 
-		$SQL = "SELECT * FROM `ums_user`,`tms_task` WHERE tms_task.assign_by = ums_user.UniversityID AND tms_task.assign_to = '$id'";
+		$AssignBAO = new AssignBAO();
 
-		$SQL = $this->_DB->doQuery($SQL);
+		$all_assginedtask =  $AssignBAO->findAllbyUserId($id)->getResultObject();
 
-		$rows = $this->_DB->getAllRows();
+		for($i=0; $i<sizeof($all_assginedtask);$i++)
+		{
+			$taskId = $all_assginedtask[$i]->getTaskId();
+			$SQL = "SELECT * FROM `tms_task` WHERE tms_task.id = '$taskId'";
+			$SQL = $this->_DB->doQuery($SQL);
+			$rows = $this->_DB->getAllRows();
 
-		for($i = 0; $i < sizeof($rows); $i++) {
-			$row = $rows[$i];
+			$row = $rows[0];
+
 			$Task = new Task();
 
 		    $Task->setID ( $row['id']);
@@ -111,14 +119,39 @@ include_once COMMON.'class.common.task.inc';
 		    $Task->setDetails($row['details']);
 		    $Task->setLastDateOfFinish($row['date_of_submission']);
 		    $Task->setAssignDate($row['date_of_assign']);
-		    $assign_to = $row['FirstName'] ." ".$row['MiddleName']." ".$row['LastName']; 
-		    $Task->setAssignBy($assign_to);
-		    $Task->setAssignTo($row['assign_by']);	
-		    $Task->setCategory($row['task_category']);	   
+		    $Task->setProgress($row['progress']); 
+
+		    $Task->setAssignBy($all_assginedtask[$i]->getAssignBy());
+
+		    $Task->setLastDateOfUpdate($row['last_date_of_update']);	
+		    $Task->setCategory($row['task_category']);
+
+
+		    //
+
+
+		     $user = new User();
+		    //$user->setID($row['task_creator']);
+ 			$user->setUniversityID($row['task_creator']);
+		    $UserBAO = new UserDAO();
+
+		   $creator = $UserBAO->readUser_By_UniversityID($user)->getResultObject();
+
+		   $creatorName = $creator->getFirstName() . " ". $creator->getMiddleName()." " .$creator->getLastName();
+
+
+		   $Task->setTaskCreator($creatorName);
+		   $Task->setDate($all_assginedtask[$i]->getDate());
+
+
 
 		    $List[]=$Task;
-   
+
+
 		}
+
+		
+
 
 		//print_r($List);
 
@@ -126,7 +159,6 @@ include_once COMMON.'class.common.task.inc';
 		$Result = new Result();
 		$Result->setIsSuccess(1);
 		$Result->setResultObject($List);
-
 		return $Result;
 
 	}
@@ -209,6 +241,86 @@ include_once COMMON.'class.common.task.inc';
 
 		return $Result;
 		//	print_r($Result);
+	}
+
+	public function findMyByDate($User,$date)
+	{
+
+		$List = array();
+		$Result = new Result();
+
+		$id = $User->getID();
+
+
+		//$id = $user->getID();
+
+		$AssignBAO = new AssignBAO();
+
+		$all_assginedtask =  $AssignBAO->findAllbyUserId($id)->getResultObject();
+
+
+		for($i=0; $i<sizeof($all_assginedtask);$i++)
+		{
+			$taskId = $all_assginedtask[$i]->getTaskId();
+			$SQL = "SELECT * FROM `tms_task` WHERE tms_task.id = '$taskId' AND tms_task.date_of_submission='$date';";
+
+			//echo $SQL;
+
+			$SQL = $this->_DB->doQuery($SQL);
+			$rows = $this->_DB->getAllRows();
+
+			if($this->_DB->getNumRows()>0)
+			{
+				//print_r($rows);
+
+				$row = $rows[0];
+
+				$Task = new Task();
+
+			    $Task->setID ( $row['id']);
+		    	$Task->setTitle($row['task_name']);
+		    	$Task->setDetails($row['details']);
+		   		$Task->setLastDateOfFinish($row['date_of_submission']);
+		    	$Task->setAssignDate($row['date_of_assign']);
+		    	$Task->setProgress($row['progress']); 
+
+		    	$Task->setAssignBy($all_assginedtask[$i]->getAssignBy());
+
+		    	$Task->setLastDateOfUpdate($row['last_date_of_update']);	
+		    	$Task->setCategory($row['task_category']);
+
+
+		     	$user = new User();
+		    //$user->setID($row['task_creator']);
+ 				$user->setUniversityID($row['task_creator']);
+		    	$UserBAO = new UserDAO();
+
+		   		$creator = $UserBAO->readUser_By_UniversityID($user)->getResultObject();
+
+		   		$creatorName = $creator->getFirstName() . " ". $creator->getMiddleName()." " .$creator->getLastName();
+
+
+		   		$Task->setTaskCreator($creatorName);
+		   		$Task->setDate($all_assginedtask[$i]->getDate());
+
+
+
+		    	$List[]=$Task;
+			}
+			
+
+
+			
+
+
+		}
+
+
+		$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($List);
+		return $Result;
+
 	}
 
 	public function deleteTask($Task)

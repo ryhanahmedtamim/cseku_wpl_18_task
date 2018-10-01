@@ -1,35 +1,15 @@
-<html>
 
-     <head>
-	    <script>
-		   function goLastMonth(month,year)
-		   {
-			   if(month==1)
-			   {
-				   --year;
-				   month=13;
-			   }
-			   document.location.href="<?php $_SERVER['PHP_SELF'];?>?month="+(month-1)+"&year="+year;
-			   
-		   }
-		   function goNextMonth(month,year)
-		   {
-			   if(month==12)
-			   {
-				   ++year;
-				   month=0;
-			   }
-			   document.location.href="<?php $_SERVER['PHP_SELF'];?>?month="+(month+1)+"&year="+year;
-			   
-		   }
-		   
-		
-		</script>
-	 
-	 
-	 </head>
-	 
-	 <body>
+
+<?php
+
+include_once 'blade/view.my_cal.blade.inc';
+
+if(!(isset($_GET['showtask'])))
+{
+ ?>
+
+<div>
+
 	     <?php
 		 if(isset($_GET['day']))
 		 {  
@@ -96,13 +76,20 @@
 							   echo "</tr><tr>";
 						   }
 
-						   if($i == $day1)
-						   {
-						   	echo "<td width='250px' height='50px' align='center' bgcolor = 'green'>".$i."</td>";
+						   if( $timeStamp == strtotime(date("Y-m-d")))
+						   {?>
+						   	<td width='250px' height='50px' align='center' bgcolor = 'green'>
+						   	<a href="?showtask=<?php echo $year."-".$month."-".$i; ?>" > <?php echo $i;?> </a>
+						   </td>
+						<?php
 						   }
 						   else
 						   {
-						   	echo "<td width='250px' height='50px' align='center'>".$i."</td>";
+						   	?>
+						   	<td width='250px' height='50px' align='center' >
+						   		<a href="?showtask=<?php echo $year."-".$month."-".$i; ?>" > <?php echo $i ;?> </a>
+						   		</td>
+						   <?php
 						   }
 
 						   
@@ -112,7 +99,83 @@
 				   ?>
 			</table>
 	 
-	 </body>
+</div>
+
+<?php
+}
+elseif(isset($_GET['showtask']))
+{
+?>
+
+<div>
+	
+</div>
 
 
-</html>
+<div class="panel-body">
+
+
+	<table class="table table-bordered">
+
+	<?php
+	
+
+	
+	//if DAO access is successful to load all the Roles then show them one by one
+	if($result->getIsSuccess()){
+
+		$tasks = $result->getResultObject();
+	
+	?>
+		<tr>
+			<th>Task Name</th>
+			<th>Creation Date </th>
+			<th>Assign Date</th>
+			<th>Finish Date</th>
+			<th>Last Updated Date</th>
+			<th>Task Creator</th>
+			<th>Task Category</th>
+			<th>Assign By</th>
+			<th>Progress</th>
+
+		</tr>
+		<?php
+		for($i = 0; $i < sizeof($tasks); $i++) {
+
+			$task = $tasks[$i];
+
+			?>
+		    <tr>
+		    	<center>
+			    <td> <?php echo $task->getTitle(); ?></td>
+			    <td> <?php echo $task->getAssignDate(); ?></td>
+			    <td> <?php echo $task->getDate(); ?></td>
+			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
+			    <td><?php echo $task->getLastDateOfUpdate();?></td>
+			    <td> <?php echo $task->getTaskCreator(); ?></td>
+			    <td><?php echo $task->getCategory(); ?></td>			   
+			    <td> <?php echo $task->getAssignBy(); ?></td>
+			    <td> <?php echo $task->getProgress(); ?></td>
+
+
+			    <td><a href="http://localhost/dgted/create_task.php?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>
+			    <td><a href="http://localhost/dgted/create_task.php?details=<?php echo $task->getID(); ?>" >Details</a></td>
+			    </center>
+		    </tr>
+
+	    <?php
+		}
+
+	}
+	else{
+
+		echo $Result->getResultObject(); //giving failure message
+	}
+
+	?>
+	</table>
+	</div>
+
+	<?php
+}
+	?>

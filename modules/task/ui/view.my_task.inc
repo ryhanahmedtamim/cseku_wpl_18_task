@@ -22,10 +22,15 @@ include_once COMMON.'class.common.inc';
 	?>
 		<tr>
 			<th>Task Name</th>
+			<th>Creation Date </th>
 			<th>Assign Date</th>
 			<th>Finish Date</th>
+			<th>Last Updated Date</th>
 			<th>Task Creator</th>
+			<th>Task Category</th>
 			<th>Assign By</th>
+			<th>Progress</th>
+
 		</tr>
 		<?php
 		for($i = 0; $i < sizeof($tasks); $i++) {
@@ -34,11 +39,23 @@ include_once COMMON.'class.common.inc';
 
 			?>
 		    <tr>
+		    	<center>
 			    <td> <?php echo $task->getTitle(); ?></td>
 			    <td> <?php echo $task->getAssignDate(); ?></td>
+			    <td> <?php echo $task->getDate(); ?></td>
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
-			   
-			    <td> <?php echo $task->getAssignBy(); ?></td>		    
+			    <td><?php echo $task->getLastDateOfUpdate();?></td>
+			    <td> <?php echo $task->getTaskCreator(); ?></td>
+			    <td><?php echo $task->getCategory(); ?></td>			   
+			    <td> <?php echo $task->getAssignBy(); ?></td>
+			    <td> <?php echo $task->getProgress(); ?></td>
+
+
+			    <td><a href="http://localhost/dgted/create_task.php?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>
+			    <td><a href="http://localhost/dgted/create_task.php?details=<?php echo $task->getID(); ?>" >Details</a></td>
+			    </center>
+		    </tr>
+
 	    <?php
 		}
 

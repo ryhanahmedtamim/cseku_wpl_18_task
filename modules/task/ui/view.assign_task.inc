@@ -134,7 +134,7 @@ if(!isset($_GET['assignTo'])){
 		<tr>
 			<th>Task Name</th>
 			<th>Task Category</th>
-			<th>Assign Date</th>
+			<th>Creation Date</th>
 			<th>Finish Date</th>
 			<th>Last Update Date</th>
 			<th>Progress</th>
@@ -155,7 +155,17 @@ if(!isset($_GET['assignTo'])){
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
 			    <td><?php echo $task->getLastDateOfUpdate();?></td>
 			    
-			    <td> <?php echo $task->getProgress(); ?></td>	
+			    <td> 
+			    <button style="float:left;margin-left:15px; ">-</button>
+			    
+			    <progress style="height:25px;vertical-align: middle; margin-left: 5px; " value="<?php echo $task->getProgress(); ?>" max="10">
+							</progress>
+							
+
+							<button style="float: right;display: inline-block; position:absolute;margin-left: 5px;">+</button> 
+
+
+				</td>	
 			     <td><a href="?editTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to edit !'); " >edit</a></td>
 			    <td><a href="?deleteTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to delete !'); " >delete</a></td>
 			     <td><a href="?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>

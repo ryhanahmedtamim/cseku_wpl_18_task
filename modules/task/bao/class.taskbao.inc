@@ -67,7 +67,7 @@ class TaskBAO{
 		$Result = $this->_TaskDao->deleteTask($Task);
 		
 		if(!$Result->getIsSuccess())
-			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+			$Result->setResultObject("Database failure in TaskDAO.addTask()");		
 
 		return $Result;
 	}
@@ -77,6 +77,17 @@ class TaskBAO{
 	{
 		$Result = new Result();	
 		$Result = $this->_TaskDao->updateTask($Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in TaskDAO.addTask()");		
+
+		return $Result;	
+	}
+
+	public function findMyByDate($User,$date)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->findMyByDate($User,$date);
 		
 		if(!$Result->getIsSuccess())
 			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		

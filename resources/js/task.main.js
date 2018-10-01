@@ -36,3 +36,24 @@ function validTask() {
       }
               
 }
+
+function goLastMonth(month,year)
+{
+    if(month==1)
+      {
+        --year;
+        month=13;
+      }
+    document.location.href="?month="+(month-1)+"&year="+year;
+         
+}
+
+function goNextMonth(month,year){
+    if(month==12)
+      {
+        ++year;
+        month=0;
+      }
+    document.location.href="?month="+(month+1)+"&year="+year;
+         
+}
