@@ -1,5 +1,5 @@
 
-function showHint(str) {
+function showHint(str,id) {
   var email = document.getElementById("taskEamil");
 
      email.setCustomValidity("");
@@ -16,7 +16,7 @@ function showHint(str) {
                 document.getElementById("txtHint").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","assign_task_ajax.php?ajax=1&&searchName="+str, true);
+        xmlhttp.open("GET","assign_task_ajax.php?ajax=1&&searchName="+str+"&&taskId="+id, true);
         xmlhttp.send();
     }
 }
@@ -27,12 +27,16 @@ function validTask() {
      var email = document.getElementById("taskEamil");
 
      //email.setCustomValidity("");
-
+      //st =
       if(st.trim() == "Searching...")
       {
        // console.log(st);
          email.setCustomValidity("Invalid Email");
 
+      }
+      else if (st.includes("Already Assigned"))
+      {
+          email.setCustomValidity("Already Assigned");
       }
               
 }

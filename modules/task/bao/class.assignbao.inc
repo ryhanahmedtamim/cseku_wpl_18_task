@@ -35,6 +35,17 @@ class AssignBAO{
 
 		return $Result;
 	}
+
+	public function findTaskUserId($id,$taksId)
+	{
+		$Result = new Result();	
+		$Result = $this->_AssignDao->findTaskUserId($id,$taksId);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in AssignDAO.findTaskUserId($id,$taksId)");		
+
+		return $Result;
+	}
 	
 	
 

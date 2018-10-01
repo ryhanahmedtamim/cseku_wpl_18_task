@@ -132,10 +132,10 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 
 		     $user = new User();
 		    //$user->setID($row['task_creator']);
- 			$user->setUniversityID($row['task_creator']);
+ 			$user->setID($row['task_creator']);
 		    $UserBAO = new UserDAO();
 
-		   $creator = $UserBAO->readUser_By_UniversityID($user)->getResultObject();
+		   $creator = $UserBAO->readUser($user)->getResultObject();
 
 		   $creatorName = $creator->getFirstName() . " ". $creator->getMiddleName()." " .$creator->getLastName();
 
@@ -292,10 +292,10 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 
 		     	$user = new User();
 		    //$user->setID($row['task_creator']);
- 				$user->setUniversityID($row['task_creator']);
+ 				$user->setID($row['task_creator']);
 		    	$UserBAO = new UserDAO();
 
-		   		$creator = $UserBAO->readUser_By_UniversityID($user)->getResultObject();
+		   		$creator = $UserBAO->readUser($user)->getResultObject();
 
 		   		$creatorName = $creator->getFirstName() . " ". $creator->getMiddleName()." " .$creator->getLastName();
 

@@ -129,7 +129,7 @@ elseif(isset($_GET['showtask']))
 	?>
 		<tr>
 			<th>Task Name</th>
-			<th>Creation Date </th>
+			
 			<th>Assign Date</th>
 			<th>Finish Date</th>
 			<th>Last Updated Date</th>
@@ -148,14 +148,37 @@ elseif(isset($_GET['showtask']))
 		    <tr>
 		    	<center>
 			    <td> <?php echo $task->getTitle(); ?></td>
-			    <td> <?php echo $task->getAssignDate(); ?></td>
+			   
 			    <td> <?php echo $task->getDate(); ?></td>
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
 			    <td><?php echo $task->getLastDateOfUpdate();?></td>
 			    <td> <?php echo $task->getTaskCreator(); ?></td>
 			    <td><?php echo $task->getCategory(); ?></td>			   
-			    <td> <?php echo $task->getAssignBy(); ?></td>
-			    <td> <?php echo $task->getProgress(); ?></td>
+			    <td> <?php echo $task->getAssignBy();
+			    	$progress =$task->getProgress();
+			     ?></td>
+			    <td> 
+			    <button style="float:left;margin-left:1px;" 
+			    	<?php if($progress==0){?>
+			    		disabled
+			    		<?php
+			    		} ?>
+			     >-</button>
+			    
+			    <progress style="height:25px;vertical-align: middle; margin-left: 1px; " value="<?php 
+			    				echo  $progress;
+			    				?>" max="10">
+							</progress>
+							
+
+							<button style="float: right;display: inline-block; position:absolute;margin-left: 1px;"
+							<?php if($progress==10){?>
+			    		disabled
+			    		<?php
+			    		} ?>>+</button> 
+
+
+				</td>
 
 
 			    <td><a href="http://localhost/dgted/create_task.php?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>

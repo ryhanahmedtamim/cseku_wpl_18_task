@@ -153,16 +153,29 @@ if(!isset($_GET['assignTo'])){
 			    <td> <?php echo $task->getCategory(); ?></td>
 			    <td> <?php echo $task->getAssignDate(); ?></td>	
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
-			    <td><?php echo $task->getLastDateOfUpdate();?></td>
-			    
+			    <td><?php echo $task->getLastDateOfUpdate();$progress =$task->getProgress();
+			     ?></td>
 			    <td> 
-			    <button style="float:left;margin-left:15px; ">-</button>
+			    <input type="text" name="taskId" hidden value="<?php 
+					 echo $task->getID();  ?>"/>
+			    <button type="submit" name="progressDown" style="float:left;margin-left:1px;" 
+			    	<?php if($progress==0){?>
+			    		disabled
+			    		<?php
+			    		} ?>
+			     >-</button>
 			    
-			    <progress style="height:25px;vertical-align: middle; margin-left: 5px; " value="<?php echo $task->getProgress(); ?>" max="10">
+			    <progress style="height:25px;vertical-align: middle; margin-left: 1px; " value="<?php 
+			    				echo  $progress;
+			    				?>" max="10">
 							</progress>
 							
 
-							<button style="float: right;display: inline-block; position:absolute;margin-left: 5px;">+</button> 
+							<button style="float: right;display: inline-block; position:absolute;margin-left: 1px;"
+							<?php if($progress==10){?>
+			    		disabled
+			    		<?php
+			    		} ?>>+</button> 
 
 
 				</td>	
@@ -200,7 +213,7 @@ else{
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="email">Assign To (email):</label>
               	<div class="col-sm-6">
-              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value)"   />
+              	<input type="email" id="taskEamil" name="email" class="form-control" placeholder="email" required autofocus onkeyup="showHint(this.value,<?php echo $_GET['assignTo']; ?>)"   />
 
               	<div>
 			  		<p> 
@@ -220,11 +233,7 @@ else{
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="comment">Comment:</label>
               	<div class="col-sm-6">
-              	<textarea name="comment" rows="4" cols="26" class="form-control" placeholder="Comment" required >
-
-              	<?php 
-					if(isset($_GET['comment'])) echo $_Task->getDetails();  ?>
-              		
+              	<textarea name="comment" rows="4" cols="26" class="form-control" placeholder="Comment" required >              		
               	</textarea>
 			  	</div>
 			</div>

@@ -19,7 +19,8 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 	$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
 	$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
-	$ID = $userPositions->getUniversityID();
+	$ID = $userPositions->getID();
+	
 	$User = new User();
 	$User->setID($ID);
 
@@ -42,7 +43,7 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 		
 		$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); 
 
-		$_Task->setTaskCreator($userPositions->getUniversityID());	
+		$_Task->setTaskCreator($userPositions->getID());	
 
 		$_Task->setProgress(0);	
 
@@ -112,18 +113,14 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 		$Assign->setTaskId($_GET['assignTo']);
 
 		$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject();
-		$Assign->setAssignBy($userPositions->getUniversityID());
+		$Assign->setAssignBy($userPositions->getID());
 
 		$userEmail = $_POST['email'];
-		$result = $_UserBAO->findUserDetailsByEmail($userEmail);
-		$userDetails = $result->getResultObject();
-		$Assign->setAssignTo($userDetails->getUniversityID());
+		$Assign->setAssignTo($userEmail);
 		$Assign->setDate(date("Y-m-d"));
 		$Assign->setComment($_POST['comment']);
 
 		$result = $_AssignBAO->assignTask($Assign);
-
-		//print_r($Assign);
 
 		if($result->getIsSuccess()){
 	  		 
@@ -131,9 +128,19 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 		}
 		else
 		{
-			print_r($Assign);
+			//print_r($Assign);
 		}
 
+	}
+
+	if(isset($_POST['progressDown']))
+	{
+		$taskId = $_POST['taskId'];
+
+		echo "<script>
+			alert('hello');
+
+       	</script>";
 	}
 
 ?>

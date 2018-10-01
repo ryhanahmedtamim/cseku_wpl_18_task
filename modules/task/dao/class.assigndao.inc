@@ -59,10 +59,10 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		    $this->_Assign->setTaskId ( $row['id']);
 
 		    $user = new User();
-		    $user->setUniversityID($row['assign_by']);
+		    $user->setID($row['assign_by']);
 		    $UserBAO = new UserDAO();
 
-		   $assign = $UserBAO->readUser_By_UniversityID($user)->getResultObject();
+		   $assign = $UserBAO->readUser($user)->getResultObject();
 
 		   $assignby = $assign->getFirstName() . " ". $assign->getMiddleName()." " .$assign->getLastName();
 		    //$this->_Assign->setAssignTo( $row['assign_to'] );
@@ -81,6 +81,48 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		$Result->setIsSuccess(1);
 		$Result->setResultObject($assignList);
 
+		return $Result;
+	}
+
+
+	public function findTaskUserId($id,$taksId)
+	{
+		$assignList = array();
+		$Result = new Result();
+
+		$this->_DB->doQuery("SELECT * FROM `tms_assign` WHERE tms_assign.assign_to='$id' AND tms_assign.status = 1 AND tms_assign.id = '$taksId' ");
+
+		$row = $this->_DB->getTopRow();
+
+		if(isset($row)){
+			$this->_Assign = new Assign();
+
+		    $this->_Assign->setTaskId ( $row['id']);
+
+		    $user = new User();
+		    $user->setID($row['assign_by']);
+		    $UserBAO = new UserDAO();
+
+		   $assign = $UserBAO->readUser($user)->getResultObject();
+
+		   $assignby = $assign->getFirstName() . " ". $assign->getMiddleName()." " .$assign->getLastName();
+		    //$this->_Assign->setAssignTo( $row['assign_to'] );
+
+
+
+		    $this->_Assign->setAssignBy( $assignby );
+		    $this->_Assign->setDate( $row['assing_date'] ); 
+		    $this->_Assign->setComment( $row['comment'] ); 
+		    $assignList[]=$this->_Assign;
+		    $Result->setIsSuccess(1);
+			$Result->setResultObject($assignList);
+
+   
+		}
+
+
+		
+		
 		return $Result;
 	}
 

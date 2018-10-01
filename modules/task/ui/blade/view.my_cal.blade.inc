@@ -14,7 +14,7 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 
 	$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
 	$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
-	$ID = $userPositions->getUniversityID();
+	$ID = $userPositions->getID();
 	$User = new User();
 	$User->setID($ID);
 	$result;

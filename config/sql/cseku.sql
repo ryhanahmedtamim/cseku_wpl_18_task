@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 25, 2018 at 07:59 AM
--- Server version: 5.7.23-0ubuntu0.18.04.1
--- PHP Version: 7.2.10-0ubuntu0.18.04.1
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 01, 2018 at 05:27 PM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,13 +28,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `jms_job`
 --
 
-CREATE TABLE `jms_job` (
+DROP TABLE IF EXISTS `jms_job`;
+CREATE TABLE IF NOT EXISTS `jms_job` (
   `ID` varchar(40) NOT NULL,
   `Title` varchar(100) NOT NULL,
   `Details` varchar(1000) NOT NULL,
   `LastDateOfApplication` date NOT NULL,
   `Salary` float NOT NULL,
-  `Qualification` varchar(500) NOT NULL
+  `Qualification` varchar(500) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -41,14 +45,16 @@ CREATE TABLE `jms_job` (
 -- Table structure for table `reg_course`
 --
 
-CREATE TABLE `reg_course` (
+DROP TABLE IF EXISTS `reg_course`;
+CREATE TABLE IF NOT EXISTS `reg_course` (
   `ID` varchar(40) NOT NULL,
   `CourseNo` varchar(40) NOT NULL,
   `Title` varchar(100) NOT NULL,
   `Credit` double NOT NULL,
   `CourseTypeID` varchar(40) NOT NULL,
   `DisciplineID` varchar(40) NOT NULL,
-  `IsDeleted` tinyint(1) NOT NULL
+  `IsDeleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -67,7 +73,8 @@ INSERT INTO `reg_course` (`ID`, `CourseNo`, `Title`, `Credit`, `CourseTypeID`, `
 -- Table structure for table `reg_course_resource`
 --
 
-CREATE TABLE `reg_course_resource` (
+DROP TABLE IF EXISTS `reg_course_resource`;
+CREATE TABLE IF NOT EXISTS `reg_course_resource` (
   `CourseID` varchar(40) NOT NULL,
   `ResourceID` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -78,9 +85,11 @@ CREATE TABLE `reg_course_resource` (
 -- Table structure for table `reg_course_sessional_type`
 --
 
-CREATE TABLE `reg_course_sessional_type` (
+DROP TABLE IF EXISTS `reg_course_sessional_type`;
+CREATE TABLE IF NOT EXISTS `reg_course_sessional_type` (
   `ID` varchar(40) NOT NULL,
-  `Name` varchar(50) NOT NULL
+  `Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -101,7 +110,8 @@ INSERT INTO `reg_course_sessional_type` (`ID`, `Name`) VALUES
 -- Table structure for table `reg_course_student_registration`
 --
 
-CREATE TABLE `reg_course_student_registration` (
+DROP TABLE IF EXISTS `reg_course_student_registration`;
+CREATE TABLE IF NOT EXISTS `reg_course_student_registration` (
   `ID` varchar(40) NOT NULL,
   `Regs_TeacherID` varchar(40) DEFAULT NULL,
   `StudentID` varchar(40) NOT NULL,
@@ -110,7 +120,8 @@ CREATE TABLE `reg_course_student_registration` (
   `YearID` varchar(40) DEFAULT NULL,
   `TermID` varchar(40) DEFAULT NULL,
   `IsRetake` tinyint(1) DEFAULT NULL,
-  `Status` varchar(20) NOT NULL
+  `Status` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -131,14 +142,16 @@ INSERT INTO `reg_course_student_registration` (`ID`, `Regs_TeacherID`, `StudentI
 -- Table structure for table `reg_course_teacher`
 --
 
-CREATE TABLE `reg_course_teacher` (
+DROP TABLE IF EXISTS `reg_course_teacher`;
+CREATE TABLE IF NOT EXISTS `reg_course_teacher` (
   `ID` varchar(40) NOT NULL,
   `CourseID` varchar(40) NOT NULL,
   `TeacherID` varchar(40) NOT NULL,
   `SessionID` varchar(40) NOT NULL,
   `YearID` varchar(40) NOT NULL,
   `TermID` varchar(40) NOT NULL,
-  `NoOfTests` int(10) DEFAULT NULL
+  `NoOfTests` int(10) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -155,12 +168,14 @@ INSERT INTO `reg_course_teacher` (`ID`, `CourseID`, `TeacherID`, `SessionID`, `Y
 -- Table structure for table `reg_course_teacher_registration`
 --
 
-CREATE TABLE `reg_course_teacher_registration` (
+DROP TABLE IF EXISTS `reg_course_teacher_registration`;
+CREATE TABLE IF NOT EXISTS `reg_course_teacher_registration` (
   `ID` varchar(40) NOT NULL,
   `TeacherID` varchar(40) NOT NULL,
   `SessionID` varchar(40) NOT NULL,
   `YearID` varchar(40) NOT NULL,
-  `TermID` varchar(40) NOT NULL
+  `TermID` varchar(40) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -176,10 +191,12 @@ INSERT INTO `reg_course_teacher_registration` (`ID`, `TeacherID`, `SessionID`, `
 -- Table structure for table `reg_course_type`
 --
 
-CREATE TABLE `reg_course_type` (
+DROP TABLE IF EXISTS `reg_course_type`;
+CREATE TABLE IF NOT EXISTS `reg_course_type` (
   `ID` varchar(40) NOT NULL,
   `Name` varchar(30) NOT NULL,
-  `SessionalTypeID` varchar(40) NOT NULL
+  `SessionalTypeID` varchar(40) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -197,9 +214,11 @@ INSERT INTO `reg_course_type` (`ID`, `Name`, `SessionalTypeID`) VALUES
 -- Table structure for table `reg_registration_session`
 --
 
-CREATE TABLE `reg_registration_session` (
+DROP TABLE IF EXISTS `reg_registration_session`;
+CREATE TABLE IF NOT EXISTS `reg_registration_session` (
   `ID` varchar(40) NOT NULL,
-  `Name` varchar(30) NOT NULL
+  `Name` varchar(30) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -220,9 +239,11 @@ INSERT INTO `reg_registration_session` (`ID`, `Name`) VALUES
 -- Table structure for table `reg_term`
 --
 
-CREATE TABLE `reg_term` (
+DROP TABLE IF EXISTS `reg_term`;
+CREATE TABLE IF NOT EXISTS `reg_term` (
   `ID` varchar(40) NOT NULL,
-  `Name` varchar(20) NOT NULL
+  `Name` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -240,9 +261,11 @@ INSERT INTO `reg_term` (`ID`, `Name`) VALUES
 -- Table structure for table `reg_year`
 --
 
-CREATE TABLE `reg_year` (
+DROP TABLE IF EXISTS `reg_year`;
+CREATE TABLE IF NOT EXISTS `reg_year` (
   `ID` varchar(40) NOT NULL,
-  `Name` varchar(20) NOT NULL
+  `Name` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -267,7 +290,8 @@ INSERT INTO `reg_year` (`ID`, `Name`) VALUES
 -- Table structure for table `rms_course_marks_result`
 --
 
-CREATE TABLE `rms_course_marks_result` (
+DROP TABLE IF EXISTS `rms_course_marks_result`;
+CREATE TABLE IF NOT EXISTS `rms_course_marks_result` (
   `ID` varchar(40) NOT NULL,
   `CourseNo` varchar(40) NOT NULL,
   `TeacherID` varchar(40) DEFAULT NULL,
@@ -277,7 +301,8 @@ CREATE TABLE `rms_course_marks_result` (
   `StudentID` varchar(40) NOT NULL,
   `MarksID` varchar(40) NOT NULL,
   `MarksValue` varchar(200) NOT NULL,
-  `Status` varchar(40) DEFAULT NULL
+  `Status` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -293,7 +318,8 @@ INSERT INTO `rms_course_marks_result` (`ID`, `CourseNo`, `TeacherID`, `SessionID
 -- Table structure for table `rms_course_marks_result_publish`
 --
 
-CREATE TABLE `rms_course_marks_result_publish` (
+DROP TABLE IF EXISTS `rms_course_marks_result_publish`;
+CREATE TABLE IF NOT EXISTS `rms_course_marks_result_publish` (
   `ID` varchar(40) NOT NULL,
   `CourseNo` varchar(40) NOT NULL,
   `TeacherID` varchar(40) DEFAULT NULL,
@@ -308,7 +334,8 @@ CREATE TABLE `rms_course_marks_result_publish` (
   `MarksTotal` varchar(20) NOT NULL,
   `Grades` varchar(200) NOT NULL,
   `GradeRanges` varchar(300) NOT NULL,
-  `FinalGrade` varchar(20) NOT NULL
+  `FinalGrade` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -317,7 +344,8 @@ CREATE TABLE `rms_course_marks_result_publish` (
 -- Table structure for table `rms_course_marks_tests`
 --
 
-CREATE TABLE `rms_course_marks_tests` (
+DROP TABLE IF EXISTS `rms_course_marks_tests`;
+CREATE TABLE IF NOT EXISTS `rms_course_marks_tests` (
   `ID` varchar(40) NOT NULL,
   `CourseNo` varchar(40) NOT NULL,
   `TeacherID` varchar(40) NOT NULL,
@@ -325,7 +353,8 @@ CREATE TABLE `rms_course_marks_tests` (
   `YearID` varchar(40) NOT NULL,
   `TermID` varchar(40) NOT NULL,
   `StudentID` varchar(40) NOT NULL,
-  `MarksValue` varchar(200) NOT NULL
+  `MarksValue` varchar(200) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -345,11 +374,13 @@ INSERT INTO `rms_course_marks_tests` (`ID`, `CourseNo`, `TeacherID`, `SessionID`
 -- Table structure for table `rms_grade_setup`
 --
 
-CREATE TABLE `rms_grade_setup` (
+DROP TABLE IF EXISTS `rms_grade_setup`;
+CREATE TABLE IF NOT EXISTS `rms_grade_setup` (
   `ID` varchar(40) NOT NULL,
   `Grades` varchar(200) NOT NULL,
   `Ranges` varchar(300) NOT NULL,
-  `IsDefault` tinyint(1) NOT NULL
+  `IsDefault` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -365,13 +396,15 @@ INSERT INTO `rms_grade_setup` (`ID`, `Grades`, `Ranges`, `IsDefault`) VALUES
 -- Table structure for table `rms_marks_setup`
 --
 
-CREATE TABLE `rms_marks_setup` (
+DROP TABLE IF EXISTS `rms_marks_setup`;
+CREATE TABLE IF NOT EXISTS `rms_marks_setup` (
   `ID` varchar(40) NOT NULL,
   `CourseTypeID` varchar(40) NOT NULL,
   `HeaderID` varchar(200) NOT NULL,
   `HeaderName` varchar(200) NOT NULL,
   `HeaderMax` varchar(200) NOT NULL,
-  `IsDefault` tinyint(1) NOT NULL
+  `IsDefault` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -388,13 +421,15 @@ INSERT INTO `rms_marks_setup` (`ID`, `CourseTypeID`, `HeaderID`, `HeaderName`, `
 -- Table structure for table `tms_assign`
 --
 
-CREATE TABLE `tms_assign` (
+DROP TABLE IF EXISTS `tms_assign`;
+CREATE TABLE IF NOT EXISTS `tms_assign` (
   `id` varchar(40) NOT NULL,
   `assign_to` varchar(40) NOT NULL,
-  `assign_by` varchar(11) NOT NULL,
+  `assign_by` varchar(40) NOT NULL,
   `assing_date` date NOT NULL,
   `comment` varchar(1000) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`,`assign_to`,`assign_by`,`assing_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -402,9 +437,12 @@ CREATE TABLE `tms_assign` (
 --
 
 INSERT INTO `tms_assign` (`id`, `assign_to`, `assign_by`, `assing_date`, `comment`, `status`) VALUES
-('24', '160231', '160230', '2018-09-25', 'TEST2                               \r\n                ', 1),
-('27', '160230', '160231', '2018-09-25', '\r\n       tesy2                          \r\n                ', 1),
-('27', '160231', '160230', '2018-09-25', 'test\r\n                                  \r\n                ', 0);
+('24', 'naeema@gmail.com', 'ryhan@gmail.com', '2018-09-25', 'TEST2                               \r\n                ', 0),
+('24', 'naeema@gmail.com', 'ryhan@gmail.com', '2018-10-01', '                 test                ', 1),
+('24', 'ryhan@gmail.com', 'ryhan@gmail.com', '2018-10-01', 'Test                          \r\n                ', 0),
+('27', 'naeema@gmail.com', 'ryhan@gmail.com', '2018-09-25', 'test\r\n                                  \r\n                ', 0),
+('27', 'ryhan@gmail.com', 'naeema@gmail.com', '2018-09-25', '\r\n       tesy2                          \r\n                ', 1),
+('28', 'ryhan@gmail.com', 'naeema@gmail.com', '2018-09-30', '\r\n          test                       \r\n                ', 1);
 
 -- --------------------------------------------------------
 
@@ -412,27 +450,31 @@ INSERT INTO `tms_assign` (`id`, `assign_to`, `assign_by`, `assing_date`, `commen
 -- Table structure for table `tms_task`
 --
 
-CREATE TABLE `tms_task` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tms_task`;
+CREATE TABLE IF NOT EXISTS `tms_task` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `task_name` varchar(20) NOT NULL,
-  `task_creator` int(11) NOT NULL,
+  `task_creator` varchar(40) NOT NULL,
   `task_category` varchar(20) NOT NULL,
   `date_of_assign` date NOT NULL,
   `date_of_submission` date NOT NULL,
   `last_date_of_update` date NOT NULL,
   `progress` int(11) NOT NULL DEFAULT '0',
-  `details` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `details` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tms_task`
 --
 
 INSERT INTO `tms_task` (`id`, `task_name`, `task_creator`, `task_category`, `date_of_assign`, `date_of_submission`, `last_date_of_update`, `progress`, `details`) VALUES
-(24, 'test11', 160230, 'Study', '2018-09-17', '2018-09-20', '2018-09-24', 0, 'DIP'),
-(25, 'Class Test', 160230, 'Study', '2018-09-17', '2018-09-20', '2018-09-17', 0, 'DIP Class test'),
-(26, 'test11', 160230, 'Study', '2018-08-09', '2018-09-22', '2018-09-17', 0, 'update date test'),
-(27, 'Solve the 5x5x5 cube', 160230, 'Study', '2018-09-25', '2018-09-26', '2018-09-25', 0, 'You Have to solve the cube in 30 Minutes');
+(24, 'test11', 'ryhan@gmail.com', 'Study', '2018-09-17', '2018-09-20', '2018-09-24', 10, 'DIP'),
+(25, 'Class Test', 'ryhan@gmail.com', 'Study', '2018-09-17', '2018-09-20', '2018-09-17', 7, 'DIP Class test'),
+(26, 'test11', 'ryhan@gmail.com', 'Study', '2018-08-09', '2018-09-22', '2018-09-17', 6, 'update date test'),
+(27, 'Solve the 5x5x5 cube', 'ryhan@gmial.com', 'Study', '2018-09-25', '2018-09-26', '2018-09-25', 0, 'You Have to solve the cube in 30 Minutes'),
+(28, 'test4', 'ryhan@gmail.com', 'Study', '2018-09-30', '2018-09-26', '2018-09-30', 0, 'test'),
+(29, 'test', 'ryhan@gmail.com', 'Study', '2018-10-01', '2018-10-26', '2018-10-01', 0, 'test');
 
 -- --------------------------------------------------------
 
@@ -440,10 +482,12 @@ INSERT INTO `tms_task` (`id`, `task_name`, `task_creator`, `task_category`, `dat
 -- Table structure for table `tms_task_category`
 --
 
-CREATE TABLE `tms_task_category` (
-  `id` int(11) NOT NULL,
-  `task_type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `tms_task_category`;
+CREATE TABLE IF NOT EXISTS `tms_task_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tms_task_category`
@@ -461,11 +505,13 @@ INSERT INTO `tms_task_category` (`id`, `task_type`) VALUES
 -- Table structure for table `ums_discipline`
 --
 
-CREATE TABLE `ums_discipline` (
+DROP TABLE IF EXISTS `ums_discipline`;
+CREATE TABLE IF NOT EXISTS `ums_discipline` (
   `ID` varchar(40) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `ShortCode` varchar(20) DEFAULT NULL,
-  `SchoolID` varchar(40) DEFAULT NULL
+  `SchoolID` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -487,12 +533,14 @@ INSERT INTO `ums_discipline` (`ID`, `Name`, `ShortCode`, `SchoolID`) VALUES
 -- Table structure for table `ums_permission`
 --
 
-CREATE TABLE `ums_permission` (
-  `TableID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ums_permission`;
+CREATE TABLE IF NOT EXISTS `ums_permission` (
+  `TableID` int(11) NOT NULL AUTO_INCREMENT,
   `ID` varchar(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
-  `Category` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Category` varchar(100) NOT NULL,
+  PRIMARY KEY (`TableID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1325 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ums_permission`
@@ -634,9 +682,11 @@ INSERT INTO `ums_permission` (`TableID`, `ID`, `Name`, `Category`) VALUES
 -- Table structure for table `ums_position`
 --
 
-CREATE TABLE `ums_position` (
+DROP TABLE IF EXISTS `ums_position`;
+CREATE TABLE IF NOT EXISTS `ums_position` (
   `ID` varchar(40) NOT NULL,
-  `Name` varchar(50) NOT NULL
+  `Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -664,9 +714,11 @@ INSERT INTO `ums_position` (`ID`, `Name`) VALUES
 -- Table structure for table `ums_role`
 --
 
-CREATE TABLE `ums_role` (
+DROP TABLE IF EXISTS `ums_role`;
+CREATE TABLE IF NOT EXISTS `ums_role` (
   `ID` varchar(40) NOT NULL,
-  `Name` varchar(50) NOT NULL
+  `Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -687,11 +739,13 @@ INSERT INTO `ums_role` (`ID`, `Name`) VALUES
 -- Table structure for table `ums_role_permission`
 --
 
-CREATE TABLE `ums_role_permission` (
-  `Row` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ums_role_permission`;
+CREATE TABLE IF NOT EXISTS `ums_role_permission` (
+  `Row` int(11) NOT NULL AUTO_INCREMENT,
   `RoleID` varchar(40) NOT NULL,
-  `PermissionID` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `PermissionID` varchar(100) NOT NULL,
+  PRIMARY KEY (`Row`)
+) ENGINE=InnoDB AUTO_INCREMENT=2218 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ums_role_permission`
@@ -908,7 +962,8 @@ INSERT INTO `ums_role_permission` (`Row`, `RoleID`, `PermissionID`) VALUES
 -- Table structure for table `ums_school`
 --
 
-CREATE TABLE `ums_school` (
+DROP TABLE IF EXISTS `ums_school`;
+CREATE TABLE IF NOT EXISTS `ums_school` (
   `ID` varchar(40) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `DeanID` varchar(40) NOT NULL
@@ -931,7 +986,8 @@ INSERT INTO `ums_school` (`ID`, `Name`, `DeanID`) VALUES
 -- Table structure for table `ums_user`
 --
 
-CREATE TABLE `ums_user` (
+DROP TABLE IF EXISTS `ums_user`;
+CREATE TABLE IF NOT EXISTS `ums_user` (
   `ID` varchar(40) NOT NULL,
   `UniversityID` varchar(20) NOT NULL,
   `Email` varchar(50) NOT NULL,
@@ -943,7 +999,10 @@ CREATE TABLE `ums_user` (
   `Status` varchar(20) DEFAULT NULL,
   `IsLogged` varchar(10) DEFAULT NULL,
   `IsArchived` varchar(10) DEFAULT NULL,
-  `IsDeleted` varchar(10) DEFAULT NULL
+  `IsDeleted` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Email` (`Email`),
+  UNIQUE KEY `UniversityID` (`UniversityID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -964,14 +1023,16 @@ INSERT INTO `ums_user` (`ID`, `UniversityID`, `Email`, `Password`, `FirstName`, 
 -- Table structure for table `ums_user_details`
 --
 
-CREATE TABLE `ums_user_details` (
+DROP TABLE IF EXISTS `ums_user_details`;
+CREATE TABLE IF NOT EXISTS `ums_user_details` (
   `ID` varchar(40) NOT NULL,
   `FatherName` varchar(100) DEFAULT NULL,
   `MotherName` varchar(100) DEFAULT NULL,
   `PermanentAddress` varchar(200) DEFAULT NULL,
   `HomePhone` varchar(20) DEFAULT NULL,
   `CurrentAddress` varchar(200) DEFAULT NULL,
-  `MobilePhone` varchar(20) DEFAULT NULL
+  `MobilePhone` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -992,7 +1053,8 @@ INSERT INTO `ums_user_details` (`ID`, `FatherName`, `MotherName`, `PermanentAddr
 -- Table structure for table `ums_user_discipline`
 --
 
-CREATE TABLE `ums_user_discipline` (
+DROP TABLE IF EXISTS `ums_user_discipline`;
+CREATE TABLE IF NOT EXISTS `ums_user_discipline` (
   `UserID` varchar(40) NOT NULL,
   `DisciplineID` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1003,11 +1065,13 @@ CREATE TABLE `ums_user_discipline` (
 -- Table structure for table `ums_user_position`
 --
 
-CREATE TABLE `ums_user_position` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ums_user_position`;
+CREATE TABLE IF NOT EXISTS `ums_user_position` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` varchar(40) NOT NULL,
-  `PositionID` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `PositionID` varchar(40) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ums_user_position`
@@ -1023,11 +1087,13 @@ INSERT INTO `ums_user_position` (`ID`, `UserID`, `PositionID`) VALUES
 -- Table structure for table `ums_user_role`
 --
 
-CREATE TABLE `ums_user_role` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ums_user_role`;
+CREATE TABLE IF NOT EXISTS `ums_user_role` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` varchar(40) NOT NULL,
-  `RoleID` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `RoleID` varchar(40) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ums_user_role`
@@ -1058,209 +1124,8 @@ INSERT INTO `ums_user_role` (`ID`, `UserID`, `RoleID`) VALUES
 (165, 'mkazi078@uottawa.ca', 'administrator'),
 (166, 'ryhan@gmail.com', 'administrator'),
 (167, 'naeema@gmail.com', 'student');
+COMMIT;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `jms_job`
---
-ALTER TABLE `jms_job`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_course`
---
-ALTER TABLE `reg_course`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_course_sessional_type`
---
-ALTER TABLE `reg_course_sessional_type`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_course_student_registration`
---
-ALTER TABLE `reg_course_student_registration`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_course_teacher`
---
-ALTER TABLE `reg_course_teacher`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_course_teacher_registration`
---
-ALTER TABLE `reg_course_teacher_registration`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_course_type`
---
-ALTER TABLE `reg_course_type`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_registration_session`
---
-ALTER TABLE `reg_registration_session`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_term`
---
-ALTER TABLE `reg_term`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `reg_year`
---
-ALTER TABLE `reg_year`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `rms_course_marks_result`
---
-ALTER TABLE `rms_course_marks_result`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `rms_course_marks_result_publish`
---
-ALTER TABLE `rms_course_marks_result_publish`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `rms_course_marks_tests`
---
-ALTER TABLE `rms_course_marks_tests`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `rms_grade_setup`
---
-ALTER TABLE `rms_grade_setup`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `rms_marks_setup`
---
-ALTER TABLE `rms_marks_setup`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tms_assign`
---
-ALTER TABLE `tms_assign`
-  ADD PRIMARY KEY (`id`,`assign_to`,`assign_by`,`assing_date`);
-
---
--- Indexes for table `tms_task`
---
-ALTER TABLE `tms_task`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tms_task_category`
---
-ALTER TABLE `tms_task_category`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ums_discipline`
---
-ALTER TABLE `ums_discipline`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `ums_permission`
---
-ALTER TABLE `ums_permission`
-  ADD PRIMARY KEY (`TableID`);
-
---
--- Indexes for table `ums_position`
---
-ALTER TABLE `ums_position`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `ums_role`
---
-ALTER TABLE `ums_role`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `ums_role_permission`
---
-ALTER TABLE `ums_role_permission`
-  ADD PRIMARY KEY (`Row`);
-
---
--- Indexes for table `ums_user`
---
-ALTER TABLE `ums_user`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `Email` (`Email`),
-  ADD UNIQUE KEY `UniversityID` (`UniversityID`);
-
---
--- Indexes for table `ums_user_details`
---
-ALTER TABLE `ums_user_details`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `ums_user_position`
---
-ALTER TABLE `ums_user_position`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `ums_user_role`
---
-ALTER TABLE `ums_user_role`
-  ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tms_task`
---
-ALTER TABLE `tms_task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
---
--- AUTO_INCREMENT for table `tms_task_category`
---
-ALTER TABLE `tms_task_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `ums_permission`
---
-ALTER TABLE `ums_permission`
-  MODIFY `TableID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1325;
---
--- AUTO_INCREMENT for table `ums_role_permission`
---
-ALTER TABLE `ums_role_permission`
-  MODIFY `Row` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2218;
---
--- AUTO_INCREMENT for table `ums_user_position`
---
-ALTER TABLE `ums_user_position`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
---
--- AUTO_INCREMENT for table `ums_user_role`
---
-ALTER TABLE `ums_user_role`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

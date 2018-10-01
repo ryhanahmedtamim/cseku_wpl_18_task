@@ -15,7 +15,7 @@ include_once UTILITY.'class.util.inc';
 
 	$userPositions = $_UserBAO->readUserRolesPositions($globalUser)->getResultObject(); //reading the user 
 	$userDetails = $_UserBAO->readUserDetails($globalUser)->getResultObject();
-	$ID = $userPositions->getUniversityID();
+	$ID = $userPositions->getID();
 	$User = new User();
 	$User->setID($ID);
 
