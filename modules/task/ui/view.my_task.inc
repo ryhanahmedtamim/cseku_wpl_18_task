@@ -47,11 +47,16 @@ include_once COMMON.'class.common.inc';
 			    <td><?php echo $task->getLastDateOfUpdate();$progress =$task->getProgress();
 			     ?></td>
 			    <td> 
-			    <a class="btn btn-warning" href="?progressdown=<?php echo $task->getID(); ?>"
-			    <?php if($progress==0){?>
+			    <a class="btn btn-warning" 
+			    		 <?php if($progress<=0){?>
 			    		disabled
 			    		<?php
-			    		} ?>
+			    		} 
+			    		else{?>
+			    			 href="?progressdown=<?php echo $task->getID(); ?>"
+			    			<?php
+			    			} 
+			    			?>
 
 			     >-</a>
 			    
@@ -61,9 +66,13 @@ include_once COMMON.'class.common.inc';
 							</progress>
 							
 
-							<a class="btn btn-success" href="?progressup=<?php echo $task->getID(); ?>"
-			    		<?php if($progress==10){?>
+							<a class="btn btn-success"
+			    		<?php if($progress>=10){?>
 			    				disabled
+			    				<?php
+			    				}
+			    				else{?>
+			    					 href="?progressup=<?php echo $task->getID(); ?>"
 			    				<?php
 			    				} 
 

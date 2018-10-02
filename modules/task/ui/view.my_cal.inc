@@ -174,11 +174,16 @@ elseif(isset($_GET['showtask']))
 			    	$progress =$task->getProgress();
 			     ?></td>
 			    <td> 
-			    <a class="btn btn-warning" href="?progressdown=<?php echo $task->getID(); ?>&&showtask=<?php echo $task->getLastDateOfFinish(); ?>"
-			    <?php if($progress==0){?>
+			    <a class="btn btn-warning" 
+			    		 <?php if($progress<=0){?>
 			    		disabled
 			    		<?php
-			    		} ?>
+			    		} 
+			    		else{?>
+			    			 href="?progressdown=<?php echo $task->getID(); ?>&&showtask=<?php echo $task->getLastDateOfFinish();?>"
+			    			<?php
+			    			} 
+			    			?>
 
 			     >-</a>
 			    
@@ -188,9 +193,13 @@ elseif(isset($_GET['showtask']))
 							</progress>
 							
 
-							<a class="btn btn-success" href="?progressup=<?php echo $task->getID(); ?>&&showtask=<?php echo $task->getLastDateOfFinish(); ?>"
-			    		<?php if($progress==10){?>
+							<a class="btn btn-success"
+			    		<?php if($progress>=10){?>
 			    				disabled
+			    				<?php
+			    				}
+			    				else{?>
+			    					 href="?progressup=<?php echo $task->getID(); ?>&&showtask=<?php echo $task->getLastDateOfFinish();?>"
 			    				<?php
 			    				} 
 
