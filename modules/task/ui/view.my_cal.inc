@@ -8,6 +8,13 @@ if(!(isset($_GET['showtask'])))
 {
  ?>
 
+
+ <div class="panel panel-default">
+    
+    <div class="panel-heading">Calender</div>
+    
+    <div class="panel-body">
+
 <div>
 
 	     <?php
@@ -111,6 +118,15 @@ elseif(isset($_GET['showtask']))
 	
 </div>
 
+</div>
+</div>
+
+<div class="panel panel-default">
+    
+    <div class="panel-heading">Task Information</div>
+    
+    <div class="panel-body">
+
 
 <div class="panel-body">
 
@@ -134,7 +150,7 @@ elseif(isset($_GET['showtask']))
 			<th>Finish Date</th>
 			<th>Last Updated Date</th>
 			<th>Task Creator</th>
-			<th>Task Category</th>
+
 			<th>Assign By</th>
 			<th>Progress</th>
 
@@ -153,29 +169,34 @@ elseif(isset($_GET['showtask']))
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
 			    <td><?php echo $task->getLastDateOfUpdate();?></td>
 			    <td> <?php echo $task->getTaskCreator(); ?></td>
-			    <td><?php echo $task->getCategory(); ?></td>			   
+			    			   
 			    <td> <?php echo $task->getAssignBy();
 			    	$progress =$task->getProgress();
 			     ?></td>
 			    <td> 
-			    <button style="float:left;margin-left:1px;" 
-			    	<?php if($progress==0){?>
+			    <a class="btn btn-warning" href="?progressdown=<?php echo $task->getID(); ?>&&showtask=<?php echo $task->getLastDateOfFinish(); ?>"
+			    <?php if($progress==0){?>
 			    		disabled
 			    		<?php
 			    		} ?>
-			     >-</button>
+
+			     >-</a>
 			    
-			    <progress style="height:25px;vertical-align: middle; margin-left: 1px; " value="<?php 
+			    <progress style="height:30px; vertical-align: middle; margin-left: 1px; " value="<?php 
 			    				echo  $progress;
 			    				?>" max="10">
 							</progress>
 							
 
-							<button style="float: right;display: inline-block; position:absolute;margin-left: 1px;"
-							<?php if($progress==10){?>
-			    		disabled
-			    		<?php
-			    		} ?>>+</button> 
+							<a class="btn btn-success" href="?progressup=<?php echo $task->getID(); ?>&&showtask=<?php echo $task->getLastDateOfFinish(); ?>"
+			    		<?php if($progress==10){?>
+			    				disabled
+			    				<?php
+			    				} 
+
+			    				?>
+
+			    			 >+</a>
 
 
 				</td>
@@ -202,3 +223,7 @@ elseif(isset($_GET['showtask']))
 	<?php
 }
 	?>
+
+
+	</div>
+	</div>

@@ -95,5 +95,28 @@ class TaskBAO{
 		return $Result;	
 	}
 
+
+	public function prograssDown($_Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->prograssDown($_Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;
+	}
+
+	public function prograssUp($_Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->prograssUp($_Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in CategoryDAO.addTask()");		
+
+		return $Result;
+	}
+
 }
 ?>

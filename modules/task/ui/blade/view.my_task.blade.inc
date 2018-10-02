@@ -22,4 +22,36 @@ include_once UTILITY.'class.util.inc';
 	$my_task = $_TaskBAO->findByUser($User);
 	//print_r ($my_task->getResultObject()[0]->getAssignBy());
 
+		if(isset($_GET['progressdown']))
+	{
+		$taskId = $_GET['progressdown'];
+
+		$_Task->setID($taskId);
+
+		$Result = $_TaskBAO->prograssDown($_Task);
+
+		//print_r($Result);		
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:my_task.php");	
+		}
+	}
+
+	if(isset($_GET['progressup']))
+	{
+		$taskId = $_GET['progressup'];
+
+		$_Task->setID($taskId);
+
+		$Result = $_TaskBAO->prograssUp($_Task);
+
+		//print_r($Result);		
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:my_task.php");	
+		}
+	}
+
 ?>

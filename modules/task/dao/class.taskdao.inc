@@ -338,6 +338,45 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		return $Result;
 	}
 
+
+
+	public function prograssDown($Task)
+	{
+		$_Task = $Task;
+		$id = $_Task->getID();
+		
+		$SQL = "UPDATE tms_task SET tms_task.progress = tms_task.progress-1 WHERE tms_task.id='$id';";
+
+		//beginning a transaction 	
+		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+		$SQL = $this->_DB->doQuery($SQL);
+		$this->_DB->getConnection()->commit();
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($SQL);
+
+		return $Result;
+	}
+
+
+	public function prograssUp($_Task)
+	{
+		
+		$id = $_Task->getID();
+		
+		$SQL = "UPDATE tms_task SET tms_task.progress = tms_task.progress+1 WHERE tms_task.id='$id';";
+
+		//beginning a transaction 	
+		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+		$SQL = $this->_DB->doQuery($SQL);
+		$this->_DB->getConnection()->commit();
+	 	$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($SQL);
+
+		return $Result;
+	}
+
 	}
 
 ?>

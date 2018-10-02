@@ -133,14 +133,36 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 	}
 
-	if(isset($_POST['progressDown']))
+	if(isset($_GET['progressdown']))
 	{
-		$taskId = $_POST['taskId'];
+		$taskId = $_GET['progressdown'];
 
-		echo "<script>
-			alert('hello');
+		$_Task->setID($taskId);
 
-       	</script>";
+		$Result = $_TaskBAO->prograssDown($_Task);
+
+		//print_r($Result);		
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:create_task.php");	
+		}
+	}
+
+	if(isset($_GET['progressup']))
+	{
+		$taskId = $_GET['progressup'];
+
+		$_Task->setID($taskId);
+
+		$Result = $_TaskBAO->prograssUp($_Task);
+
+		//print_r($Result);		
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:create_task.php");	
+		}
 	}
 
 ?>

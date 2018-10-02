@@ -23,6 +23,7 @@ include_once COMMON.'class.common.inc';
 		<tr>
 			<th>Task Name</th>
 			<th>Task Category</th>
+			<th>Task Creator</th>
 			<th>Creation Date</th>
 			<th>Finish Date</th>
 			<th>Last Update Date</th>
@@ -40,29 +41,35 @@ include_once COMMON.'class.common.inc';
 		    <tr>
 			    <td> <?php echo $task->getTitle(); ?></td>
 			    <td> <?php echo $task->getCategory(); ?></td>
+			    <td> <?php echo $task->getTaskCreator(); ?></td>
 			    <td> <?php echo $task->getAssignDate(); ?></td>	
 			    <td> <?php echo $task->getLastDateOfFinish(); ?></td>
 			    <td><?php echo $task->getLastDateOfUpdate();$progress =$task->getProgress();
 			     ?></td>
 			    <td> 
-			    <button style="float:left;margin-left:1px;" 
-			    	<?php if($progress==0){?>
+			    <a class="btn btn-warning" href="?progressdown=<?php echo $task->getID(); ?>"
+			    <?php if($progress==0){?>
 			    		disabled
 			    		<?php
 			    		} ?>
-			     >-</button>
+
+			     >-</a>
 			    
-			    <progress style="height:25px;vertical-align: middle; margin-left: 1px; " value="<?php 
+			    <progress style="height:30px; vertical-align: middle; margin-left: 1px; " value="<?php 
 			    				echo  $progress;
 			    				?>" max="10">
 							</progress>
 							
 
-							<button style="float: right;display: inline-block; position:absolute;margin-left: 1px;"
-							<?php if($progress==10){?>
-			    		disabled
-			    		<?php
-			    		} ?>>+</button> 
+							<a class="btn btn-success" href="?progressup=<?php echo $task->getID(); ?>"
+			    		<?php if($progress==10){?>
+			    				disabled
+			    				<?php
+			    				} 
+
+			    				?>
+
+			    			 >+</a>
 
 
 				</td>

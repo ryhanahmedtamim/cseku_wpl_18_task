@@ -156,26 +156,29 @@ if(!isset($_GET['assignTo'])){
 			    <td><?php echo $task->getLastDateOfUpdate();$progress =$task->getProgress();
 			     ?></td>
 			    <td> 
-			    <input type="text" name="taskId" hidden value="<?php 
-					 echo $task->getID();  ?>"/>
-			    <button type="submit" name="progressDown" style="float:left;margin-left:1px;" 
-			    	<?php if($progress==0){?>
+			    <a class="btn btn-warning" href="?progressdown=<?php echo $task->getID(); ?>"
+			    <?php if($progress==0){?>
 			    		disabled
 			    		<?php
 			    		} ?>
-			     >-</button>
+
+			     >-</a>
 			    
-			    <progress style="height:25px;vertical-align: middle; margin-left: 1px; " value="<?php 
+			    <progress style="height:30px; vertical-align: middle; margin-left: 1px; " value="<?php 
 			    				echo  $progress;
 			    				?>" max="10">
 							</progress>
 							
 
-							<button style="float: right;display: inline-block; position:absolute;margin-left: 1px;"
-							<?php if($progress==10){?>
-			    		disabled
-			    		<?php
-			    		} ?>>+</button> 
+							<a class="btn btn-success" href="?progressup=<?php echo $task->getID(); ?>"
+			    		<?php if($progress==10){?>
+			    				disabled
+			    				<?php
+			    				} 
+
+			    				?>
+
+			    			 >+</a>
 
 
 				</td>	
@@ -203,7 +206,7 @@ else{
 
 <div class="panel panel-default">
     
-    <div class="panel-heading">Task Category</div>
+    <div class="panel-heading">Assign Task</div>
     
     <div class="panel-body">
 

@@ -25,7 +25,37 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 		$result = $_TaskBAO->findMyByDate($User,$_GET['showtask']);
 	}
 
+	if(isset($_GET['progressdown']))
+	{
+		$taskId = $_GET['progressdown'];
 
+		$_Task->setID($taskId);
+
+		$Result = $_TaskBAO->prograssDown($_Task);
+
+		//print_r($Result);		
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:my_cal.php?showtask=".$_GET['showtask']);	
+		}
+	}
+
+	if(isset($_GET['progressup']))
+	{
+		$taskId = $_GET['progressup'];
+
+		$_Task->setID($taskId);
+
+		$Result = $_TaskBAO->prograssUp($_Task);
+
+		//print_r($Result);		
+
+		if($Result->getIsSuccess()){
+	  		 
+	  		 header("Location:my_cal.php?showtask=".$_GET['showtask']);		
+		}
+	}
 	
 
 ?>
