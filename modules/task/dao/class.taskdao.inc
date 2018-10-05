@@ -5,7 +5,7 @@ include_once UTILITY.'class.util.inc';
 include_once COMMON.'class.common.task.inc';
 include_once MODULES_TASK.'bao/class.assignbao.inc';
 include_once COMMON.'class.common.user.inc';
-include_once MODULES_USER.'dao/class.userdao.inc';
+include_once MODULES_USER.'bao/class.userbao.inc';
 
 	class TaskDAO{
 	private $_DB;
@@ -133,7 +133,7 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		     $user = new User();
 		    //$user->setID($row['task_creator']);
  			$user->setID($row['task_creator']);
-		    $UserBAO = new UserDAO();
+		    $UserBAO = new UserBAO();
 
 		   $creator = $UserBAO->readUser($user)->getResultObject();
 
@@ -293,7 +293,7 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		     	$user = new User();
 		    //$user->setID($row['task_creator']);
  				$user->setID($row['task_creator']);
-		    	$UserBAO = new UserDAO();
+		    	$UserBAO = new UserBAO();
 
 		   		$creator = $UserBAO->readUser($user)->getResultObject();
 
