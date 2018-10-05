@@ -344,8 +344,9 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 	{
 		$_Task = $Task;
 		$id = $_Task->getID();
+		$updatedDate = $_Task->getLastDateOfUpdate();
 		
-		$SQL = "UPDATE tms_task SET tms_task.progress = tms_task.progress-1 WHERE tms_task.id='$id';";
+		$SQL = "UPDATE tms_task SET `progress` = progress-1 ,`last_date_of_update` = '$updatedDate' WHERE tms_task.id='$id';";
 
 		//beginning a transaction 	
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
@@ -364,7 +365,9 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 		
 		$id = $_Task->getID();
 		
-		$SQL = "UPDATE tms_task SET tms_task.progress = tms_task.progress+1 WHERE tms_task.id='$id';";
+		$updatedDate = $_Task->getLastDateOfUpdate();
+		
+		$SQL = "UPDATE tms_task SET tms_task.progress = tms_task.progress+1 ,tms_task.last_date_of_update = '$updatedDate' WHERE tms_task.id='$id';";
 
 		//beginning a transaction 	
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);

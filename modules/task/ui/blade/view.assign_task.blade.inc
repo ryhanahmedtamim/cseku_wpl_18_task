@@ -138,10 +138,10 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 		$taskId = $_GET['progressdown'];
 
 		$_Task->setID($taskId);
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));	
 
 		$Result = $_TaskBAO->prograssDown($_Task);
-
-		//print_r($Result);		
+		
 
 		if($Result->getIsSuccess()){
 	  		 
@@ -154,10 +154,10 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 		$taskId = $_GET['progressup'];
 
 		$_Task->setID($taskId);
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));
 
 		$Result = $_TaskBAO->prograssUp($_Task);
-
-		//print_r($Result);		
+				
 
 		if($Result->getIsSuccess()){
 	  		 

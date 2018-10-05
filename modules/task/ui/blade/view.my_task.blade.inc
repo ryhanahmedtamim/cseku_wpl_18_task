@@ -22,19 +22,19 @@ include_once UTILITY.'class.util.inc';
 	$my_task = $_TaskBAO->findByUser($User);
 	//print_r ($my_task->getResultObject()[0]->getAssignBy());
 
-		if(isset($_GET['progressdown']))
+	if(isset($_GET['progressdown']))
 	{
 		$taskId = $_GET['progressdown'];
 
 		$_Task->setID($taskId);
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));	
 
 		$Result = $_TaskBAO->prograssDown($_Task);
-
-		//print_r($Result);		
+		
 
 		if($Result->getIsSuccess()){
 	  		 
-	  		 header("Location:my_task.php");	
+	  		 header("Location:create_task.php");	
 		}
 	}
 
@@ -43,14 +43,14 @@ include_once UTILITY.'class.util.inc';
 		$taskId = $_GET['progressup'];
 
 		$_Task->setID($taskId);
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));
 
 		$Result = $_TaskBAO->prograssUp($_Task);
-
-		//print_r($Result);		
+				
 
 		if($Result->getIsSuccess()){
 	  		 
-	  		 header("Location:my_task.php");	
+	  		 header("Location:create_task.php");	
 		}
 	}
 

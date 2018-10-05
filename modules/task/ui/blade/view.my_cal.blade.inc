@@ -32,12 +32,12 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 		$_Task->setID($taskId);
 
 		$Result = $_TaskBAO->prograssDown($_Task);
-
-		//print_r($Result);		
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));	
 
 		if($Result->getIsSuccess()){
 	  		 
-	  		 header("Location:my_cal.php?showtask=".$_GET['showtask']);	
+	  		 header("Location:create_task.php");
+	  		 exit();	
 		}
 	}
 
@@ -48,14 +48,14 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 		$_Task->setID($taskId);
 
 		$Result = $_TaskBAO->prograssUp($_Task);
-
-		//print_r($Result);		
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));		
 
 		if($Result->getIsSuccess()){
 	  		 
-	  		 header("Location:my_cal.php?showtask=".$_GET['showtask']);		
+	  		 header("Location:create_task.php");	
 		}
 	}
+
 	
 
 ?>
