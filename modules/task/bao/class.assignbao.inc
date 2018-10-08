@@ -25,13 +25,13 @@ class AssignBAO{
 		return $Result;
 	}
 
-	public function findAllbyUserId($id)
+	public function findAllbyUserId($User)
 	{
 		$Result = new Result();	
-		$Result = $this->_AssignDao->findAllbyUserId($id);
+		$Result = $this->_AssignDao->findAllbyUserId($User);
 		
 		if(!$Result->getIsSuccess())
-			$Result->setResultObject("Database failure in AssignDAO.assignTask($assign)");		
+			$Result->setResultObject("Database failure in AssignDAO.assignTask($User)");		
 
 		return $Result;
 	}
@@ -43,6 +43,17 @@ class AssignBAO{
 		
 		if(!$Result->getIsSuccess())
 			$Result->setResultObject("Database failure in AssignDAO.findTaskUserId($id,$taksId)");		
+
+		return $Result;
+	}
+
+	public function findAllAssing($Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_AssignDao->findAllAssing($Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in AssignDAO.findAllAssing($Task)");		
 
 		return $Result;
 	}

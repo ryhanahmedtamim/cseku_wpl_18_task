@@ -17,38 +17,7 @@ if(!(isset($_GET['showtask'])))
 
 <div>
 
-	     <?php
-		 if(isset($_GET['day']))
-		 {  
-	        $day=$_GET['day'];
-		 }
-		 else
-		 {
-		    $day=date("j");
-		 }
-		 if(isset($_GET['month']))
-		 {  
-	        $month=$_GET['month'];
-		 }
-		 else
-		 {
-		    $month=date("n");
-		 }
-		 if(isset($_GET['year']))
-		 {  
-	        $year=$_GET['year'];
-		 }
-		 else
-		 {
-		    $year=date("Y");
-		 }
-		
-			//calender variable
-			$currentTimeStamp=strtotime("$year-$month-$day");
-			$monthName=date("F",$currentTimeStamp);
-			$numDays=date("t",$currentTimeStamp);
-			$counter=0;
-		 ?>
+	    
 	        <table border='2'>
 			       <tr>
 				         <td><input style='width:50px;' type='button' value='<' name='previousbutton' onclick="goLastMonth(<?php echo $month.",".$year?>)"></td>
@@ -85,7 +54,7 @@ if(!(isset($_GET['showtask'])))
 
 						   if( $timeStamp == strtotime(date("Y-m-d")))
 						   {?>
-						   	<td width='250px' height='50px' align='center' bgcolor = 'green'>
+						   	<td width='250px' height='50px' align='center' bgcolor = "#F0F6FA">
 						   	<a href="?showtask=<?php echo $year."-".$month."-".$i; ?>" > <?php echo $i;?> </a>
 						   </td>
 						<?php

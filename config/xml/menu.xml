@@ -904,6 +904,7 @@
 			<Menu>
 				<ParentMenu>Task</ParentMenu>
 				<Title>My Task</Title>
+				<Link>task_details.php</Link>
 				<Permissions>
 					<Permission>TASK_C</Permission>
 					<Permission>TASK_U</Permission>									

@@ -101,7 +101,7 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 
 		$AssignBAO = new AssignBAO();
 
-		$all_assginedtask =  $AssignBAO->findAllbyUserId($id)->getResultObject();
+		$all_assginedtask =  $AssignBAO->findAllbyUserId($user)->getResultObject();
 
 		for($i=0; $i<sizeof($all_assginedtask);$i++)
 		{
@@ -256,7 +256,7 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 
 		$AssignBAO = new AssignBAO();
 
-		$all_assginedtask =  $AssignBAO->findAllbyUserId($id)->getResultObject();
+		$all_assginedtask =  $AssignBAO->findAllbyUserId($User)->getResultObject();
 
 
 		for($i=0; $i<sizeof($all_assginedtask);$i++)
@@ -378,6 +378,62 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 		$Result->setResultObject($SQL);
 
 		return $Result;
+	}
+
+	public function getAllDetails($_Task)
+	{
+			
+			$taskId = $_Task->getID();
+			$SQL = "SELECT * FROM `tms_task` WHERE tms_task.id = '$taskId'";
+			$Result = new Result();
+			//echo $SQL;
+
+			$SQL = $this->_DB->doQuery($SQL);
+			$rows = $this->_DB->getAllRows();
+
+			if($this->_DB->getNumRows()>0)
+			{
+				//print_r($rows);
+
+				$row = $rows[0];
+
+				$Task = new Task();
+
+			    $Task->setID ( $row['id']);
+		    	$Task->setTitle($row['task_name']);
+		    	$Task->setDetails($row['details']);
+		   		$Task->setLastDateOfFinish($row['date_of_submission']);
+		    	$Task->setAssignDate($row['date_of_assign']);
+		    	$Task->setProgress($row['progress']); 
+		    	$Task->setLastDateOfUpdate($row['last_date_of_update']);	
+		    	$Task->setCategory($row['task_category']);
+
+		     	$user = new User();
+ 				$user->setID($row['task_creator']);
+		    	$UserBAO = new UserBAO();
+
+		   		$creator = $UserBAO->readUser($user)->getResultObject();
+
+		   		$creatorName = $creator->getFirstName() . " ". $creator->getMiddleName()." " .$creator->getLastName();
+
+
+		   		$Task->setTaskCreator($creatorName);
+		   		//$Task->setDate($all_assginedtask[$i]->getDate());
+
+		    	$List[]=$Task;
+
+		    	$AssignBAO = new AssignBAO();
+
+				$all_assign =  $AssignBAO->findAllAssing($Task)->getResultObject();
+				$List[]=$all_assign;
+				$Result->setIsSuccess(1);
+				$Result->setResultObject($List);
+		    }
+
+		    return $Result;
+
+
+
 	}
 
 	}

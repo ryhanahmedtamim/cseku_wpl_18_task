@@ -265,6 +265,7 @@ class PageUtil{
     public static $MY_TASK = 'my_task.php';
     public static $CREAT_TASK = 'create_task.php';
     public static $ASSIGN_TASK_AJAX = 'assign_task_ajax.php';
+    public static $TASK_DETAILS = 'task_details.php';
     
 }
 class RouteUtil{
@@ -381,6 +382,7 @@ class RouteUtil{
          self::$s_Routes[PageUtil::$CREAT_TASK] = "modules/task/ui/view.assign_task.inc";
          //ASSIGN_TASK_AJAX
          self::$s_Routes[PageUtil::$ASSIGN_TASK_AJAX] = "modules/task/ui/ajax/view.assign_task.ajax.inc";
+         self::$s_Routes[PageUtil::$TASK_DETAILS] = "modules/task/ui/view.task_details.inc";
       
     }
     public static function getInstance() {

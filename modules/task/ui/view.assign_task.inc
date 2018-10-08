@@ -194,6 +194,7 @@ if(!isset($_GET['assignTo'])){
 			     <td><a href="?editTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to edit !'); " >edit</a></td>
 			    <td><a href="?deleteTask=<?php echo $task->getID(); ?>" onclick="return confirm('sure to delete !'); " >delete</a></td>
 			     <td><a href="?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>
+			     <td><a href="task_details.php?taskDetails=<?php echo $task->getID(); ?>" >Task Details</a></td>
 		    </tr>	    
 	    <?php
 		}

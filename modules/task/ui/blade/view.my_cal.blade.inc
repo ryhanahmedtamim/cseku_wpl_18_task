@@ -18,7 +18,42 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 	$User = new User();
 	$User->setID($ID);
 	$result;
+		if(isset($_GET['day']))
+		 {  
+	        $day=$_GET['day'];
+		 }
+		 else
+		 {
+		    $day=date("j");
+		 }
+		 if(isset($_GET['month']))
+		 {  
+	        $month=$_GET['month'];
+		 }
+		 else
+		 {
+		    $month=date("n");
+		 }
+		 if(isset($_GET['year']))
+		 {  
+	        $year=$_GET['year'];
+		 }
+		 else
+		 {
+		    $year=date("Y");
+		 }
+		
+			//calender variable
+			$currentTimeStamp=strtotime("$year-$month-$day");
+			$monthName=date("F",$currentTimeStamp);
+			$numDays=date("t",$currentTimeStamp);
+			$counter=0;
 
+			$date1 = strtotime("$year-$month-1");
+			$date2 = strtotime("$year-$month-$numDays");
+
+
+		    $result = $_TaskBAO->findMyByDateRange();
 
 	if(isset($_GET['showtask']))
 	{

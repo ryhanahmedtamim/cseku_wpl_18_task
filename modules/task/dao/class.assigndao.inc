@@ -44,8 +44,9 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		return $Result;
 	}
 
-	public function findAllbyUserId($id)
+	public function findAllbyUserId($User)
 	{
+		$id = $User->getID();
 		$assignList = array();
 
 		$this->_DB->doQuery("SELECT * FROM `tms_assign` WHERE tms_assign.assign_to='$id' AND tms_assign.status = 1");
@@ -124,6 +125,63 @@ include_once MODULES_USER.'dao/class.userdao.inc';
 		
 		
 		return $Result;
+	}
+
+
+
+	public function findAllAssing($Task)
+	{
+
+		$assignList = array();
+		$Result = new Result();
+
+		$taskId = $Task->getID();
+
+		$this->_DB->doQuery("SELECT * FROM `tms_assign` WHERE tms_assign.id = '$taskId' ");
+
+		$rows = $this->_DB->getAllRows();
+
+		for($i=0; $i<sizeof($rows); $i++)
+		{
+			$row = $rows[$i];
+			$this->_Assign = new Assign();
+
+		    $this->_Assign->setTaskId ( $row['id']);
+
+		    $user = new User();
+		    $user->setID($row['assign_by']);
+		    $UserBAO = new UserDAO();
+
+		   $assign = $UserBAO->readUser($user)->getResultObject();
+
+		   $assignby = $assign->getFirstName() . " ". $assign->getMiddleName()." " .$assign->getLastName();
+		    //$this->_Assign->setAssignTo( $row['assign_to'] );
+
+
+
+		    $this->_Assign->setAssignBy( $assignby );
+
+		    $user->setID($row['assign_to']);
+		    $UserBAO = new UserDAO();
+
+		   $assign = $UserBAO->readUser($user)->getResultObject();
+
+		   $assignto = $assign->getFirstName() . " ". $assign->getMiddleName()." " .$assign->getLastName();
+
+		   $this->_Assign->setAssignTo( $assignto );
+
+		    $this->_Assign->setDate( $row['assing_date'] ); 
+		    $this->_Assign->setComment( $row['comment'] ); 
+		    $assignList[]=$this->_Assign;
+		    
+			  
+		}
+
+
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($assignList); 
+		return $Result;
+
 	}
 
 

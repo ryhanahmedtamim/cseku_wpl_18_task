@@ -118,5 +118,16 @@ class TaskBAO{
 		return $Result;
 	}
 
+	public function getAllDetails($_Task)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->getAllDetails($_Task);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in  TaskDAO.getAllDetails()");	
+
+		return $Result;
+	}
+
 }
 ?>
