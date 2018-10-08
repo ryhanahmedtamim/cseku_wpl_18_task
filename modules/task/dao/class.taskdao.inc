@@ -436,6 +436,59 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 
 	}
 
+
+	public function findMyByDateRange($User, $date1,$date2)
+	{
+
+		$List = array();
+		$Result = new Result();
+
+		
+		$AssignBAO = new AssignBAO();
+
+		$all_assginedtask =  $AssignBAO->findAllbyUserId($User)->getResultObject();
+
+
+		for($i=0; $i<sizeof($all_assginedtask);$i++)
+		{
+			$taskId = $all_assginedtask[$i]->getTaskId();
+
+			$SQL = "SELECT * FROM `tms_task` WHERE tms_task.id = '$taskId' AND tms_task.date_of_submission BETWEEN '$date1' AND '$date2';";
+
+			//echo $SQL;
+
+			$SQL = $this->_DB->doQuery($SQL);
+			$rows = $this->_DB->getAllRows();
+
+			if($this->_DB->getNumRows()>0)
+			{
+				//print_r($rows);
+
+				$row = $rows[0];
+
+				$Task = new Task();
+
+			    $Task->setID ( $row['id']);
+		    	$Task->setTitle($row['task_name']);
+		    	$Task->setLastDateOfFinish($row['date_of_submission']);
+		    	
+		    	
+		    	$List[]=$Task;
+			}
+			
+
+
+		}
+
+
+		$Result = new Result();
+		$Result->setIsSuccess(1);
+		$Result->setResultObject($List);
+		return $Result;
+
+
+	}
+
 	}
 
 ?>

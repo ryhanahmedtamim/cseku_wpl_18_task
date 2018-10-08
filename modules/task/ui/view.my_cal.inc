@@ -38,7 +38,33 @@ if(!(isset($_GET['showtask'])))
 				       $day1=date("j");
 					   for($i=1;$i<$numDays+1;$i++,$counter++)
 					   {
-						   $timeStamp=strtotime("$year-$month-$i");
+
+
+					   	$timeStamp=strtotime("$year-$month-$i");
+
+					   	$presentDate = date("Y-m-d",$timeStamp);
+					   	$taskName = "";
+
+					   	for($k=0; $k<sizeof($AllTask); $k++)
+					   	{
+					   		$task = $AllTask[$k];
+					   		if($task->getLastDateOfFinish() == $presentDate)
+					   		{
+					   			$taskName .= ($task->getTitle()." ,");
+					   		}
+
+					   		if(strlen($taskName)>21)
+					   		{
+					   			$taskName .= "....";
+					   			break;
+					   		}
+
+					   		$taskName .= " ";
+
+					   	}
+
+
+						   
 						   if($i==1)
 						   {
 							   $firstDay=date("w",$timeStamp);
@@ -53,17 +79,29 @@ if(!(isset($_GET['showtask'])))
 						   }
 
 						   if( $timeStamp == strtotime(date("Y-m-d")))
-						   {?>
+						   {
+
+
+						   	?>
+
 						   	<td width='250px' height='50px' align='center' bgcolor = "#F0F6FA">
 						   	<a href="?showtask=<?php echo $year."-".$month."-".$i; ?>" > <?php echo $i;?> </a>
+						   	<br>
+						   	<?php echo $taskName;?>
 						   </td>
+
+
+
 						<?php
+
 						   }
 						   else
 						   {
 						   	?>
 						   	<td width='250px' height='50px' align='center' >
 						   		<a href="?showtask=<?php echo $year."-".$month."-".$i; ?>" > <?php echo $i ;?> </a>
+						   		<br>
+						   	<?php echo $taskName;?>
 						   		</td>
 						   <?php
 						   }
@@ -181,7 +219,7 @@ elseif(isset($_GET['showtask']))
 
 
 			    <td><a href="http://localhost/dgted/create_task.php?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>
-			    <td><a href="http://localhost/dgted/create_task.php?details=<?php echo $task->getID(); ?>" >Details</a></td>
+			    <td><a href="task_details.php?taskDetails=<?php echo $task->getID(); ?>" >Task Details</a></td>
 			    </center>
 		    </tr>
 

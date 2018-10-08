@@ -51,9 +51,17 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 
 			$date1 = strtotime("$year-$month-1");
 			$date2 = strtotime("$year-$month-$numDays");
+			$date1 = date('Y-m-d',$date1);
+			$date2 = date('Y-m-d',$date2);
 
+		    $result1 = $_TaskBAO->findMyByDateRange($User, $date1,$date2);
 
-		    $result = $_TaskBAO->findMyByDateRange();
+		    //print_r($result1);
+		    $AllTask=null;
+		    if($result1->getIsSuccess())
+		    {
+		    	$AllTask = $result1->getResultObject();
+		    }
 
 	if(isset($_GET['showtask']))
 	{

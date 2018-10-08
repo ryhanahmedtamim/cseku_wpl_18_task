@@ -83,7 +83,7 @@ include_once COMMON.'class.common.inc';
 
 				</td>
 			     <td><a href="http://localhost/dgted/create_task.php?assignTo=<?php echo $task->getID(); ?>" >Assign Task</a></td>
-			    <td><a href="http://localhost/dgted/create_task.php?details=<?php echo $task->getID(); ?>" >Details</a></td>
+			    <td><a href="task_details.php?taskDetails=<?php echo $task->getID(); ?>" >Task Details</a></td>
 		    </tr>	    
 	    <?php
 		}

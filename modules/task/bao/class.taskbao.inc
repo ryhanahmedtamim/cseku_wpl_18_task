@@ -129,5 +129,16 @@ class TaskBAO{
 		return $Result;
 	}
 
+	public function findMyByDateRange($User, $date1,$date2)
+	{
+		$Result = new Result();	
+		$Result = $this->_TaskDao->findMyByDateRange($User, $date1,$date2);
+		
+		if(!$Result->getIsSuccess())
+			$Result->setResultObject("Database failure in  TaskDAO.findMyTaskByDateRange()");	
+
+		return $Result;
+	}
+
 }
 ?>
