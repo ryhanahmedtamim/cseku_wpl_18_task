@@ -61,3 +61,10 @@ function goNextMonth(month,year){
     document.location.href="?month="+(month+1)+"&year="+year;
          
 }
+
+function goLastDay(day,month,year)
+{
+    
+    document.location.href="?showtask="+year+"-"+month+"-"+day;
+         
+}

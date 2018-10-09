@@ -119,6 +119,27 @@ if(!(isset($_GET['showtask'])))
 }
 elseif(isset($_GET['showtask']))
 {
+	$currentDate = $_GET['showtask'];
+
+	$currentMonth = date("F", strtotime($currentDate));
+	$currentYear = date("Y",strtotime($currentDate));
+	$currentDay = date("d",strtotime($currentDate));
+
+
+
+	$previousDate = date('Y-m-d', strtotime('-1 day', strtotime($currentDate)));
+	$previousDateDay = date("d",strtotime($previousDate));
+	$previousDateMonth = date("m",strtotime($previousDate));
+	$previousDateYear = date("Y",strtotime($previousDate));
+
+	//echo $previousDateDay;
+
+	$nextDate = date('Y-m-d', strtotime('+1 day', strtotime($currentDate)));
+	$nextDateDay = date("d",strtotime($nextDate));
+	$nextDateMonth = date("m",strtotime($nextDate));
+	$nextDateYear = date("Y",strtotime($nextDate));
+
+
 ?>
 
 <div>
@@ -140,6 +161,7 @@ elseif(isset($_GET['showtask']))
 
 	<table class="table table-bordered">
 
+
 	<?php
 	
 
@@ -148,8 +170,16 @@ elseif(isset($_GET['showtask']))
 	if($result->getIsSuccess()){
 
 		$tasks = $result->getResultObject();
+
 	
 	?>
+	<tr>
+				         <td><input style='width:50px;' type='button' value='<' name='previousDayButton' onclick="goLastDay(<?php echo $previousDateDay.", ".$previousDateMonth.", ".$previousDateYear;?>)"></td>
+
+
+						 <td colspan='7'><?php echo  $currentDay." ".$currentMonth.", ".$currentYear;?></td>
+						 <td><input style='width:50px;' type='button' value='>' name='nextDayButton' onclick="goLastDay(<?php echo $nextDateDay.", ".$nextDateMonth.", ".$nextDateYear; ?>)"></td>
+				   </tr>
 		<tr>
 			<th>Task Name</th>
 			
@@ -160,8 +190,12 @@ elseif(isset($_GET['showtask']))
 
 			<th>Assign By</th>
 			<th>Progress</th>
+			<th></th>
+			<th></th>
 
 		</tr>
+
+
 		<?php
 		for($i = 0; $i < sizeof($tasks); $i++) {
 

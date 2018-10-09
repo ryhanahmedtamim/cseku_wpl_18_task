@@ -114,7 +114,7 @@ if($Result->getIsSuccess())
 <br>
 <hr>
 <h4 style="margin-left: 600px">
-	<b>All History</b>
+	<b>All Assign History</b>
 </h4>
 <hr>
 
