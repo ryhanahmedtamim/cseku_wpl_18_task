@@ -71,8 +71,9 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 		$assignDate = $_Task->getAssignDate();
 		$LastDateOfUpdate = $_Task->getLastDateOfUpdate();
 		$category = $_Task->getCategory();
+		$attachment = $_Task->getAttachment();
 
-		$SQL = "UPDATE `tms_task` SET `details`='$details',`date_of_submission` = '$lastDateOfFinish',`task_category`='$category',`task_name`='$title',`last_date_of_update` = '$LastDateOfUpdate' WHERE `tms_task`.`id` = '$id';";
+		$SQL = "UPDATE `tms_task` SET `details`='$details',`attachment` = '$attachment',`date_of_submission` = '$lastDateOfFinish',`task_category`='$category',`task_name`='$title',`last_date_of_update` = '$LastDateOfUpdate' WHERE `tms_task`.`id` = '$id';";
 
 		//beginning a transaction 	
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);

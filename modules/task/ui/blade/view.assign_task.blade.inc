@@ -66,7 +66,7 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 		$Result = $_TaskBAO->addNewTask($_Task);
 
-		print_r($_FILES['fileToUpload']['name']);		
+		//print_r($_FILES['fileToUpload']['name']);		
 
 		if($Result->getIsSuccess()){
 	  		// print_r($Result);
@@ -77,7 +77,7 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 			
 
-		    $target_file = $target_dir . $fileName.".".$ext;
+		    $target_file = $target_dir . $fileName;
 		     
 
 		 if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
@@ -99,12 +99,51 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 
 	if(isset($_POST['updateTask'])){
+		$taskId = $_GET['editTask'];
 		$_Task->setID ($_GET['editTask']);
+
 		$_Task->setTitle ($_DB->secureInput($_POST['taskName']));
 		$_Task->setCategory ($_DB->secureInput($_POST['Category']));
 		$_Task->setDetails ($_DB->secureInput($_POST['taskDetails']));
 		$_Task->setLastDateOfFinish ($_DB->secureInput($_POST['date']));
 		$_Task->setLastDateOfUpdate(date("Y-m-d"));
+
+		$Result = $_TaskBAO->findTask($_Task);
+
+		$Task2 = $Result->getResultObject();
+
+		$_Task->setAttachment($Task2->getAttachment());
+
+		if(isset($_FILES["fileToUpload"]))
+		{
+			$oldFile = $Task2->getAttachment();
+			$name = $_FILES["fileToUpload"]["name"];
+			$tmp = explode('.', $name);
+			$ext = end($tmp);
+			$fileName = $taskId.".".$ext;
+
+			
+
+			$_Task->setAttachment($fileName);
+
+			$target_dir = RESOURCES."task_file/";
+
+
+			unlink($target_dir.$oldFile);
+
+			chmod($target_dir, 0775);
+
+			
+
+		    $target_file = $target_dir . $fileName;
+		     
+
+		    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+		 
+		 	//header("Location:create_task.php");
+		 
+
+		}
 
 		$Result = $_TaskBAO->updateTask($_Task);	
 
