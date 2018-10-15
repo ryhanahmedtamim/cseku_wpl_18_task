@@ -47,7 +47,8 @@ class Task extends Assign{
     private $_Creator;
 	private $_Category;  
     private $_Progress;
-    private $_LastDateOfUpdate;  
+    private $_LastDateOfUpdate; 
+    private $_Attachment; 
     public function setID ( $ID ) {
         $this->_ID = $ID;
     }
@@ -101,6 +102,13 @@ class Task extends Assign{
     }
     public function getCategory () {
         return $this->_Category;
+    }
+
+    public function setAttachment ( $Attachment ) {
+        $this->_Attachment = $Attachment;
+    }
+    public function getAttachment () {
+        return $this->_Attachment;
     }
 }
 class Task_Category{

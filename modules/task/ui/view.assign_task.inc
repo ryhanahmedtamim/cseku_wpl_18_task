@@ -14,7 +14,7 @@ if(!isset($_GET['assignTo'])){
     <div class="panel-body">
 
 	<div id="form">
-		<form method="post" class="form-horizontal">
+		<form method="post" class="form-horizontal" enctype="multipart/form-data">
 
 			<div class="form-group">
               	<label class="control-label col-sm-4" for="taskName">Task Name:</label>
@@ -74,6 +74,18 @@ if(!isset($_GET['assignTo'])){
 								?>	
 							</select>
 				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-4" for="fileToUpload">Select a File
+					
+				</label>
+				<div class="col-sm-6">
+
+				<input type="file" name="fileToUpload" id="fileToUpload">
+					
+				</div>
+
 			</div>
 
 

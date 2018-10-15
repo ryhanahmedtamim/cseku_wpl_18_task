@@ -33,8 +33,9 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 		$progress = $_Task->getProgress();
 		$category = $_Task->getCategory();
 		$LastDateOfUpdate = $_Task->getLastDateOfUpdate();
+		$attachment = $_Task->getAttachment();
 
-		$SQL = "INSERT INTO `tms_task` (`id`, `task_name`, `task_creator`, `task_category`, `date_of_assign`, `date_of_submission`,`last_date_of_update`, `progress`, `details`) VALUES (NULL, '$title', '$task_creator', '$category', '$assignDate', '$lastDateOfFinish','$LastDateOfUpdate', '$progress', '$details')";
+		$SQL = "INSERT INTO `tms_task` (`id`, `task_name`, `task_creator`, `task_category`, `date_of_assign`, `date_of_submission`,`last_date_of_update`, `progress`, `details`,`attachment`) VALUES ('$id', '$title', '$task_creator', '$category', '$assignDate', '$lastDateOfFinish','$LastDateOfUpdate', '$progress', '$details','$attachment')";
 
 		//beginning a transaction 	
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
@@ -51,7 +52,7 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 
 	 	$Result = new Result();
 		$Result->setIsSuccess(1);
-		//$Result->setResultObject($SQL);
+		$Result->setResultObject($SQL);
 
 		return $Result;
 	}
@@ -232,8 +233,9 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 		    //$assign_to = $row['Email']; 
 		    $Task->setProgress($row['progress']);
 		    //$Task->setAssignBy($row['assign_by']);	
-		    $Task->setCategory($row['task_category']);	   
+		    $Task->setCategory($row['task_category']);	
 
+		    $Task->setAttachment($row['attachment']);
 			//$Result = new Result();
 			$Result->setIsSuccess(1);
 			$Result->setResultObject($Task);

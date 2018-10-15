@@ -30,13 +30,28 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 
 	if(isset($_POST['addTask'])){
-		$_Task->setId (null);
+		$taskId = time();
+		$_Task->setId ($taskId);
 		$_Task->setTitle ($_DB->secureInput($_POST['taskName']));
 		$_Task->setCategory ($_DB->secureInput($_POST['Category']));
 		$_Task->setDetails ($_DB->secureInput($_POST['taskDetails']));
 		$_Task->setLastDateOfFinish ($_DB->secureInput($_POST['date']));
+		$_Task->setAttachment(0);
 
+		$fileName = null;
 
+		if(isset($_FILES["fileToUpload"]))
+		{
+			$name = $_FILES["fileToUpload"]["name"];
+			$tmp = explode('.', $name);
+			$ext = end($tmp);
+			$fileName = $taskId.".".$ext;
+
+			
+
+			$_Task->setAttachment($fileName);
+
+		}
 
 		$_Task->setAssignDate ($_DB->secureInput(date("Y-m-d")));
 		$_Task->setLastDateOfUpdate(date("Y-m-d"));
@@ -51,11 +66,32 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 		$Result = $_TaskBAO->addNewTask($_Task);
 
-		//print_r($Result);		
+		print_r($_FILES['fileToUpload']['name']);		
 
 		if($Result->getIsSuccess()){
-	  		 
-	  		 header("Location:create_task.php");	
+	  		// print_r($Result);
+
+			$target_dir = RESOURCES."task_file/";
+
+			chmod($target_dir, 0775);
+
+			
+
+		    $target_file = $target_dir . $fileName.".".$ext;
+		     
+
+		 if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
+		 {
+		 	header("Location:create_task.php");
+		 }
+		 else
+		 {
+		 	echo "There are some errors occurs during uploading the file";
+		 }
+
+
+
+	  		 	
 		}
 			
 
@@ -97,10 +133,21 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 	if(isset($_GET['deleteTask']))
 	{
 		$Task = new Task();
+
 		$Task->setId($_GET['deleteTask']);
+
+		$Result = $_TaskBAO->findTask($Task);
+
+		$Task2 = $Result->getResultObject();
+
+		
 		$Result=$_TaskBAO->deleteTask($Task);
 
 		if($Result->getIsSuccess()){
+
+			$target_dir = RESOURCES."task_file/".$Task2->getAttachment();
+
+			unlink($target_dir);
 	  		 
 	  		 header("Location:create_task.php");	
 		}
