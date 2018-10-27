@@ -4,8 +4,19 @@
 
 include_once 'blade/view.my_cal.blade.inc';
 
-if(!(isset($_GET['showtask'])))
+$weekdate = date('Y-m-d',strtotime('Last Sunday'));
+
+//echo($weekdate);
+
+if(!(isset($_GET['showtask'])) && !(isset($_GET['week'])))
 {
+	$currentDate = date("Y-m-d");
+    $currentMonth = date("m", strtotime($currentDate));
+	$currentYear = date("Y",strtotime($currentDate));
+	$currentDay = date("d",strtotime($currentDate));
+
+
+
  ?>
 
 
@@ -14,7 +25,20 @@ if(!(isset($_GET['showtask'])))
     <div class="panel-heading">Calender</div>
     
     <div class="panel-body">
+<div>
 
+<table border='2'>
+			       <tr>
+				         <td><input style='width:100px;' type='button' value='WeekView' name='weekView'
+				         onclick="goWeekView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
+				         <td><input style='width:100px;' type='button' value='DayView' name='DayView'
+				         onclick="goDayView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
+				         <td><input style='width:100px;' type='button' value='MonthView' name='MonthView'
+				         onclick="goMonthView()"></td>
+				   </tr>
+</table>
+
+</div>
 <div>
 
 	    
@@ -31,7 +55,7 @@ if(!(isset($_GET['showtask'])))
 						 <td width='250px' height='50px'>Wed</td>
 						 <td width='250px' height='50px'>Thu</td>
 						 <td width='250px' height='50px'>Fri</td>
-						 <td width='250px' height='50px' >Sat</td>
+						 <td width='250px' height='50px'>Sat</td>
 				   </tr>
 				   <?php
 				       echo "<tr>";
@@ -90,9 +114,9 @@ if(!(isset($_GET['showtask'])))
 						   	<?php echo $taskName;?>
 						   </td>
 
+                    
 
-
-						<?php
+						  <?php
 
 						   }
 						   else
@@ -125,6 +149,11 @@ elseif(isset($_GET['showtask']))
 	$currentYear = date("Y",strtotime($currentDate));
 	$currentDay = date("d",strtotime($currentDate));
 
+	$currentWeekDay = date("d",strtotime($weekdate));
+    $currentWeekMonth=date("m",strtotime($weekdate));
+    $currentWeekYear=date("Y",strtotime($weekdate));
+
+
 
 
 	$previousDate = date('Y-m-d', strtotime('-1 day', strtotime($currentDate)));
@@ -142,10 +171,6 @@ elseif(isset($_GET['showtask']))
 
 ?>
 
-<div>
-	
-</div>
-
 </div>
 </div>
 
@@ -160,7 +185,14 @@ elseif(isset($_GET['showtask']))
 
 
 	<table class="table table-bordered">
-
+        <tr>
+				         <td><input style='width:100px;' type='button' value='WeekView' name='weekView'
+				         onclick="goWeekView(<?php echo $currentWeekDay.",".$currentWeekMonth.",".$currentWeekYear; ?>)"></td>
+				         <td><input style='width:100px;' type='button' value='DayView' name='DayView'
+				         onclick="goDayView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
+				         <td><input style='width:100px;' type='button' value='MonthView' name='MonthView'
+				         onclick="goMonthView()"></td>
+				   </tr>
 
 	<?php
 	
@@ -272,6 +304,125 @@ elseif(isset($_GET['showtask']))
 
 	<?php
 }
+elseif(isset($_GET['week']))
+      {
+      	$currentDate = date("Y-m-d");
+        $currentMonth = date("m", strtotime($currentDate));
+	    $currentYear = date("Y",strtotime($currentDate));
+	    $currentDay = date("d",strtotime($currentDate));
+
+ 	$currentWeek = $_GET['week'];
+          ?>
+          	 <div class="panel panel-default">
+    
+    <div class="panel-heading">Calender</div>
+    
+    <div class="panel-body">
+<div>
+
+<table border='2'>
+			       <tr>
+				         <td><input style='width:100px;' type='button' value='WeekView' name='weekView'
+				         onclick="goWeekView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
+				         <td><input style='width:100px;' type='button' value='DayView' name='DayView'
+				         onclick="goDayView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
+				         <td><input style='width:100px;' type='button' value='MonthView' name='MonthView'
+				         onclick="goMonthView()"></td>
+				   </tr>
+				   <tr>
+				         <td><input style='width:50px;' type='button' value='<' name='previousbutton' onclick="goLastweek(<?php echo $month.",".$year?>)"></td>
+						 <td colspan='5'><?php echo $monthName.", ".$year;?></td>
+						 <td><input style='width:50px;' type='button' value='>' name='nextbutton' onclick="goNextWeek(<?php echo $month.",".$year?>)"></td>
+				   </tr>
+				   <tr>
+				         <td width='250px' height='50px'>Sun</td>
+						 <td width='250px' height='50px'>Mon</td>
+						 <td width='250px' height='50px'>Tue</td>
+						 <td width='250px' height='50px'>Wed</td>
+						 <td width='250px' height='50px'>Thu</td>
+						 <td width='250px' height='50px'>Fri</td>
+						 <td width='250px' height='50px'>Sat</td>
+				   </tr>
+				   <?php
+				       echo "<tr>";
+				       //$day1=date("j");
+
+
+				       $currentWeek1 = date("d", strtotime($currentWeek));
+				       $year = date("Y", strtotime($currentWeek));
+				       $month = date("Y", strtotime($currentWeek));
+				       $count = 0;
+				       $currentWeek2 = $currentWeek;
+					   for($i=$currentWeek1;$count<7; $count++,$i=date("d", strtotime($currentWeek2)))
+					   {
+
+					   		
+					   		$timeStamp=strtotime("$year-$month-$i");
+
+					   	$presentDate = date("Y-m-d",$timeStamp);
+					   	$taskName = "";
+
+					   	for($k=0; $k<sizeof($AllTask); $k++)
+					   	{
+					   		$task = $AllTask[$k];
+					   		if($task->getLastDateOfFinish() == $presentDate)
+					   		{
+					   			$taskName .= ($task->getTitle()." ,");
+					   		}
+
+					   		if(strlen($taskName)>21)
+					   		{
+					   			$taskName .= "....";
+					   			break;
+					   		}
+
+					   		$taskName .= " ";
+
+					   	}
+
+						  if( $timeStamp == strtotime(date("Y-m-d")))
+						   {
+
+
+						   	?>
+
+						   	<td width='250px' height='50px' align='center' bgcolor = "#F0F6FA">
+						   	<a href="?showtask=<?php echo $currentWeek2; ?>" > <?php echo $i;?> </a>
+						   	<br>
+						   	<?php echo $taskName;?>
+						   </td>
+
+                    
+
+						  <?php
+
+						   }
+						   else
+						   {
+						   	?>
+						   	<td width='250px' height='50px' align='center' >
+						   		<a href="?showtask=<?php echo $currentWeek2; ?>" > <?php echo $i;?> </a>
+						   		<br>
+						   	<?php echo $taskName;?>
+						   		</td>
+						   <?php
+						   }
+
+						   $currentWeek2 =date("Y-m-d", strtotime('+1 day', strtotime($currentWeek2)));
+
+						   
+					   }
+					   
+					   echo "</tr>";
+				   ?>
+				   
+</table>
+
+
+
+
+          <?php   
+      }
 	?>
 
 

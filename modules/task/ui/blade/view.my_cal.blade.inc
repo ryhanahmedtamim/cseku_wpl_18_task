@@ -71,15 +71,17 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 	if(isset($_GET['progressdown']))
 	{
 		$taskId = $_GET['progressdown'];
+		$date = $_GET['showtask'];
 
 		$_Task->setID($taskId);
-
-		$Result = $_TaskBAO->prograssDown($_Task);
+		
 		$_Task->setLastDateOfUpdate(date("Y-m-d"));	
+		$Result = $_TaskBAO->prograssDown($_Task);
+			
 
 		if($Result->getIsSuccess()){
 	  		 
-	  		 header("Location:create_task.php");
+	  		 header("Location:?showtask=".$date);
 	  		 exit();	
 		}
 	}
@@ -87,15 +89,16 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 	if(isset($_GET['progressup']))
 	{
 		$taskId = $_GET['progressup'];
+		$date = $_GET['showtask'];
 
 		$_Task->setID($taskId);
-
+		$_Task->setLastDateOfUpdate(date("Y-m-d"));	
 		$Result = $_TaskBAO->prograssUp($_Task);
-		$_Task->setLastDateOfUpdate(date("Y-m-d"));		
+			
 
 		if($Result->getIsSuccess()){
 	  		 
-	  		 header("Location:create_task.php");	
+	  		 header("Location:?showtask=".$date);	
 		}
 	}
 

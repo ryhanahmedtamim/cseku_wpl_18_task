@@ -52,6 +52,7 @@ function goLastMonth(month,year)
          
 }
 
+
 function goNextMonth(month,year){
     if(month==12)
       {
@@ -66,5 +67,23 @@ function goLastDay(day,month,year)
 {
     
     document.location.href="?showtask="+year+"-"+month+"-"+day;
+         
+}
+function goMonthView()
+{
+    
+    document.location.href="http://localhost/dgted/my_cal.php";
+         
+}
+function goDayView(day,month,year)
+{
+    
+    document.location.href="?showtask="+day+"-"+month+"-"+year;
+         
+}
+function goWeekView(day,month,year)
+{
+    
+    document.location.href="?week="+year+"-"+month+"-"+day;
          
 }
