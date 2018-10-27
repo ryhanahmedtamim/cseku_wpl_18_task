@@ -7,6 +7,9 @@ include_once 'blade/view.my_cal.blade.inc';
 $weekdate = date('Y-m-d',strtotime('Last Sunday'));
 
 //echo($weekdate);
+$currentWeekDay = date("d",strtotime($weekdate));
+    $currentWeekMonth=date("m",strtotime($weekdate));
+    $currentWeekYear=date("Y",strtotime($weekdate));
 
 if(!(isset($_GET['showtask'])) && !(isset($_GET['week'])))
 {
@@ -312,6 +315,21 @@ elseif(isset($_GET['week']))
 	    $currentDay = date("d",strtotime($currentDate));
 
  	$currentWeek = $_GET['week'];
+
+
+
+ 		$nextWeekDate = date("Y-m-d", strtotime('+7 day', strtotime($currentWeek)));
+ 		$nextWeekDateDay = date("d", strtotime($nextWeekDate));
+ 		$nextWeekDateMonth = date("m", strtotime($nextWeekDate));
+ 		$nextWeekDateYear = date("Y", strtotime($nextWeekDate));
+
+
+ 		$previousWeekDate = date("Y-m-d", strtotime('-7 day', strtotime($currentWeek)));
+
+ 		$previousWeekDateDay = date("d", strtotime($previousWeekDate));
+ 		$previousWeekDateMonth = date("m", strtotime($previousWeekDate));
+ 		$previousWeekDateYear = date("Y", strtotime($previousWeekDate));
+
           ?>
           	 <div class="panel panel-default">
     
@@ -322,17 +340,22 @@ elseif(isset($_GET['week']))
 
 <table border='2'>
 			       <tr>
-				         <td><input style='width:100px;' type='button' value='WeekView' name='weekView'
-				         onclick="goWeekView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
+				         <td>
+
+				         <input style='width:100px;' type='button' value='WeekView' name='weekView'
+				         onclick="goWeekView(<?php echo $currentWeekDay.",".$currentWeekMonth.",".$currentWeekYear; ?>)"></td>
+
 				         <td><input style='width:100px;' type='button' value='DayView' name='DayView'
 				         onclick="goDayView(<?php echo $currentDay.",".$currentMonth.",".$currentYear; ?>)"></td>
 				         <td><input style='width:100px;' type='button' value='MonthView' name='MonthView'
 				         onclick="goMonthView()"></td>
 				   </tr>
 				   <tr>
-				         <td><input style='width:50px;' type='button' value='<' name='previousbutton' onclick="goLastweek(<?php echo $month.",".$year?>)"></td>
-						 <td colspan='5'><?php echo $monthName.", ".$year;?></td>
-						 <td><input style='width:50px;' type='button' value='>' name='nextbutton' onclick="goNextWeek(<?php echo $month.",".$year?>)"></td>
+				         <td><input style='width:50px;' type='button' value='<' name='previousbutton' onclick="goWeekView(<?php echo $previousWeekDateDay.",".$previousWeekDateMonth.",".$previousWeekDateYear; ?>)"></td>
+
+						 <td colspan='5'><?php echo " ";?></td>
+
+						 <td><input style='width:50px;' type='button' value='>' name='nextbutton' onclick="goWeekView(<?php echo $nextWeekDateDay.",".$nextWeekDateMonth.",".$nextWeekDateYear; ?>)"></td>
 				   </tr>
 				   <tr>
 				         <td width='250px' height='50px'>Sun</td>
@@ -350,7 +373,7 @@ elseif(isset($_GET['week']))
 
 				       $currentWeek1 = date("d", strtotime($currentWeek));
 				       $year = date("Y", strtotime($currentWeek));
-				       $month = date("Y", strtotime($currentWeek));
+				       $month = date("m", strtotime($currentWeek));
 				       $count = 0;
 				       $currentWeek2 = $currentWeek;
 					   for($i=$currentWeek1;$count<7; $count++,$i=date("d", strtotime($currentWeek2)))
@@ -362,9 +385,14 @@ elseif(isset($_GET['week']))
 					   	$presentDate = date("Y-m-d",$timeStamp);
 					   	$taskName = "";
 
+
+					   	//print_r($AllTask);
+
+					   	//echo $presentDate;
 					   	for($k=0; $k<sizeof($AllTask); $k++)
 					   	{
 					   		$task = $AllTask[$k];
+
 					   		if($task->getLastDateOfFinish() == $presentDate)
 					   		{
 					   			$taskName .= ($task->getTitle()." ,");
