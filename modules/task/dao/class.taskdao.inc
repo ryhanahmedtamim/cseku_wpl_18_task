@@ -112,6 +112,7 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 			$SQL = $this->_DB->doQuery($SQL);
 			$rows = $this->_DB->getAllRows();
 
+			if(!empty($rows)){
 			$row = $rows[0];
 
 			$Task = new Task();
@@ -148,6 +149,7 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 
 
 		    $List[]=$Task;
+		}
 
 
 		}

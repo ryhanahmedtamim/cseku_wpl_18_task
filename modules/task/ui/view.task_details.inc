@@ -57,6 +57,24 @@ if($Result->getIsSuccess())
 	?>
 </h4>
 
+<h4 style="margin-left: 50px">
+	<b>Uploaded File:</b>
+
+	
+    <?php
+	if(empty($Task->getAttachment()))
+	{
+		echo "N/A";
+	}
+	else {
+		?>
+		<a href="<?php echo './resources/task_file/'.$Task->getAttachment(); ?>">Attachment</a>
+		<?php
+	}
+	?>
+
+</h4>
+
 
 
 
