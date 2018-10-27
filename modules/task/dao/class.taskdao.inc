@@ -410,6 +410,7 @@ include_once MODULES_USER.'bao/class.userbao.inc';
 		    	$Task->setProgress($row['progress']); 
 		    	$Task->setLastDateOfUpdate($row['last_date_of_update']);	
 		    	$Task->setCategory($row['task_category']);
+		    	$Task->setAttachment($row['attachment']);
 
 		     	$user = new User();
  				$user->setID($row['task_creator']);

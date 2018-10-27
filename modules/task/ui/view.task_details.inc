@@ -58,6 +58,8 @@ if($Result->getIsSuccess())
 </h4>
 
 
+
+
 <h4 style="margin-left: 50px">
 <b>Prograss :</b>
 <a class="btn btn-warning" 
@@ -109,6 +111,18 @@ if($Result->getIsSuccess())
 	echo $Task->getTaskCreator();
 	$progress = $Task->getProgress();
 	?>
+</h4>
+
+<h4 style="margin-left: 50px">
+	<b>Attachment :</b>
+	<a href="<?php
+	echo RESOURCES."task_file/".$Task->getAttachment();
+	
+	?>"> Download</a><?php
+
+	//echo RESOURCES."task_file/".$Task->getAttachment();
+	?>
+	
 </h4>
 
 <br>

@@ -73,7 +73,7 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 			$target_dir = RESOURCES."task_file/";
 
-			chmod($target_dir, 0775);
+			chmod($target_dir, 777);
 
 			
 
