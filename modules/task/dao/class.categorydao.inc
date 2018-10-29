@@ -49,6 +49,7 @@ include_once COMMON.'class.common.task.inc';
 	public function addNewCategory($Task_Category)
 	{
 		$CategoryName=$Task_Category->getCategory();
+		
 		$SQL = "INSERT INTO `tms_task_category` (`id`, `task_type`) VALUES (NULL, '$CategoryName')";
 
 		$this->_DB->getConnection()->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);

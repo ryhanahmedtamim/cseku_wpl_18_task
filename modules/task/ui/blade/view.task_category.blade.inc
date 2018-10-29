@@ -1,17 +1,14 @@
 <?php
 include_once UTILITY.'class.util.inc';
 include_once MODULES_TASK.'bao/class.categorybao.inc';
-include_once MODULES_TASK.'bao/class.taskbao.inc';
-include_once MODULES_USER.'bao/class.userbao.inc';
-include_once MODULES_USER.'bao/class.rolebao.inc';
-include_once MODULES_USER.'bao/class.positionbao.inc';
+include_once COMMON.'class.common.inc';
 
 	$_CategoryBAO = new CategoryBAO();
 	$_DB = DBUtil::getInstance();
 	$_Log= LogUtil::getInstance();
 	$_Task = new Task();
-	$_UserBAO = new UserBAO();
-	$_TaskBAO = new TaskBAO();
+	//$_UserBAO = new UserBAO();
+	//$_TaskBAO = new TaskBAO();
 	$_Task_Category = new Task_Category();
 
 	$globalUser = $_SESSION["globalUser"];
@@ -20,8 +17,10 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 	if(isset($_POST['save']))
 	{
 		$_Task_Category->setID(null);
+		
 		$_Task_Category->setCategory($_DB->secureInput($_POST['categoryName']));
 		$Result = $_CategoryBAO->addCategory($_Task_Category);
+
 		if($Result->getIsSuccess()){
 	  		 
 	  		 header("Location:manage_category.php");	

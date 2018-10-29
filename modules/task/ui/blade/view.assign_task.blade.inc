@@ -128,8 +128,7 @@ include_once MODULES_TASK.'bao/class.assignbao.inc';
 
 			unlink($target_dir.$oldFile);
 
-			chmod($target_dir, 0775);
-
+			
 			
 
 		    $target_file = $target_dir . $fileName;

@@ -478,10 +478,15 @@ class MiddlewareUtil{
          self::$s_Routes[PageUtil::$VIDEO]   =  PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$VIDEO_COMMENT]   =  PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$VIDEO_SEARCH]   =  PageUtil::$LOGIN ;
+         //task
          self::$s_Routes[PageUtil::$Task]  =   PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$Assign_My_Task]  =   PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$MANAGE_CATEGORY]  =   PageUtil::$LOGIN ;
          self::$s_Routes[PageUtil::$MY_TASK]  =   PageUtil::$LOGIN ;
+         self::$s_Routes[PageUtil::$TASK_DETAILS]  =   PageUtil::$LOGIN ;
+         //self::$s_Routes[PageUtil::$my_cal]  =   PageUtil::$LOGIN ;
+
+
          
    
     }

@@ -65,6 +65,7 @@ include_once MODULES_USER.'bao/class.positionbao.inc';
 
 	if(isset($_GET['showtask']))
 	{
+		
 		$result = $_TaskBAO->findMyByDate($User,$_GET['showtask']);
 	}
 

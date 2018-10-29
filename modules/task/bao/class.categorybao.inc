@@ -31,7 +31,7 @@ class CategoryBAO{
 		$Result = $this->_CategoryDao->addNewCategory($Task_Category);
 		
 		if(!$Result->getIsSuccess())
-			$Result->setResultObject("Database failure in CategoryDAO.getAllCategory()");		
+			$Result->setResultObject("Database failure in CategoryDAO.addNewCategory()");		
 
 		return $Result;
 	}

@@ -1,7 +1,7 @@
 <?php
 
 include_once 'blade/view.task_category.blade.inc';
-include_once COMMON.'class.common.inc';
+
 
 ?>
 
